@@ -3,340 +3,1414 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#241A16">
+  <meta name="theme-color" content="#0D0D0D">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.json">
   <title>Dirt Road | Two experiences. One road.</title>
   
-  <!-- Upgraded Brand Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/umd/lucide.min.js"></script>
   <script src="https://cdn.tailwindcss.com/3.4.1"></script>
   
   <style>
-    /* Upgraded Brand Palette applied to your original architecture */
     :root {
-      --bg: #241A16; /* Deep Espresso */
-      --panel: #31241E; /* Lighter Espresso for cards */
-      --line: #675342;
-      --ink: #F5EFE5; /* Warm Cream */
-      --muted: #DDDDBF; /* Oat */
-      --gold: #BD8255; /* Caramel */
-      --accent: #A85532; /* Terracotta */
+      --bg: #0D0D0D; 
+      --panel: #1A1412;
+      --card-bg: #241A16;
+      --line: #4A3527;
+      --ink: #E8DCC0; 
+      --muted: #A38C75; 
+      --gold: #C8A96B; 
+      --accent: #B08D57;
     }
-    /* Confections Alternate Palette */
     body.sweets {
-      --bg: #1A1113; /* Onyx/Black Cherry mix */
-      --panel: #2A1A1F;
-      --line: #724A52;
-      --accent: #5A2A35; /* Black Cherry */
-      --muted: #E0CBD0;
-      --gold: #C8A96B; /* Champagne Gold */
+      --bg: #0E090B;
+      --panel: #1E1216;
+      --card-bg: #28171E;
+      --line: #52313D;
+      --ink: #F3E5E8;
+      --muted: #B899A3;
+      --gold: #DFBE85;
+      --accent: #C8A96B;
     }
     
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; width: 100%; background: var(--bg); color: var(--ink); font-family: 'Montserrat', sans-serif; padding-bottom: 100px; }
-    
-    .serif { font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.015em; line-height: 1.15; }
-    .eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
-    .muted { color: var(--muted); }
-    .wrap { width: 100%; max-width: 1150px; margin: auto; padding-inline: 20px; }
+    body { 
+      margin: 0; 
+      width: 100%; 
+      background: var(--bg); 
+      color: var(--ink); 
+      font-family: 'Montserrat', sans-serif; 
+      transition: background 0.3s ease, color 0.3s ease;
+    }
     
     button, input, select, textarea { font: inherit; }
     button { cursor: pointer; }
+    button:disabled { cursor: wait; opacity: 0.55; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
     
-    /* Buttons & Interactions */
+    .serif { font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.015em; line-height: 1.15; }
+    .eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .muted { color: var(--muted); }
+    .wrap { width: 100%; max-width: 1150px; margin: auto; padding-inline: 20px; }
+    .app { width: 100%; padding-bottom: 110px; }
+    
     .btn, .outline, .chip, .switch button, .gateway-card { position: relative; overflow: hidden; }
-    .btn:after, .outline:after, .chip:after, .switch button:after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 20%, #fff5 48%, transparent 72%); transform: translateX(-130%); transition: transform 0.55s ease; pointer-events: none; }
+    .btn:after, .outline:after, .chip:after, .switch button:after { 
+      content: ""; position: absolute; inset: 0; 
+      background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.15) 48%, transparent 72%); 
+      transform: translateX(-130%); transition: transform 0.55s ease; pointer-events: none; 
+    }
     .btn:hover:after, .outline:hover:after, .chip:hover:after, .switch button:hover:after { transform: translateX(130%); }
+    .btn:active, .outline:active { transform: scale(0.97); }
     
-    .btn { border: 0; border-radius: 11px; background: var(--accent); color: white; font-weight: 600; padding: 11px 15px; min-height: 45px; transition: filter 0.2s, transform 0.2s; }
-    .sweets .btn { background: var(--gold); color: #17100f; }
-    .btn:active { transform: scale(0.97); }
+    .btn { 
+      border: 1px solid var(--accent); 
+      border-radius: 6px; 
+      background: var(--accent); 
+      color: #0D0D0D; 
+      font-weight: 600; 
+      padding: 11px 18px; 
+      min-height: 46px; 
+      transition: all 0.25s ease; 
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+    .btn:hover { filter: brightness(1.15); box-shadow: 0 0 15px rgba(200, 169, 107, 0.3); }
     
-    .outline { border: 1px solid var(--line); background: #ffffff08; color: var(--ink); border-radius: 11px; padding: 10px 13px; min-height: 43px; }
-    .outline[aria-pressed=true], .chip[aria-pressed=true] { background: var(--gold); color: #1a120e; border-color: var(--gold); }
-    .chip { border: 1px solid var(--line); color: var(--ink); background: #ffffff08; padding: 10px 14px; border-radius: 999px; white-space: nowrap; transition: background 0.2s, transform 0.2s; font-size: 0.85rem; font-weight: 500;}
+    .outline { 
+      border: 1px solid var(--line); 
+      background: rgba(255, 255, 255, 0.03); 
+      color: var(--ink); 
+      border-radius: 6px; 
+      padding: 10px 14px; 
+      min-height: 43px; 
+      transition: all 0.2s ease; 
+    }
+    .outline:hover { border-color: var(--gold); }
+    .outline[aria-pressed=true], .chip[aria-pressed=true] { 
+      background: var(--gold); 
+      color: #0D0D0D; 
+      border-color: var(--gold); 
+      font-weight: 600;
+    }
+    .chip { 
+      border: 1px solid var(--line); 
+      color: var(--ink); 
+      background: rgba(255, 255, 255, 0.03); 
+      padding: 8px 14px; 
+      border-radius: 999px; 
+      white-space: nowrap; 
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+      transition: all 0.2s ease; 
+    }
+    .chip:hover { border-color: var(--gold); }
     
-    /* Layout Elements from Original Code */
-    .top { position: sticky; top: 0; z-index: 20; background: rgba(36, 26, 22, 0.9); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
-    .sweets .top { background: rgba(26, 17, 19, 0.9); }
+    .top { 
+      position: sticky; top: 0; z-index: 30; 
+      background: rgba(13, 13, 13, 0.94); 
+      backdrop-filter: blur(20px); 
+      border-bottom: 1px solid var(--line); 
+    }
+    .sweets .top { background: rgba(14, 9, 11, 0.94); }
     
-    .switch { display: flex; gap: 3px; padding: 4px; background: rgba(0,0,0,0.4); border: 1px solid var(--line); border-radius: 999px; }
-    .switch button { font-size: 0.68rem; letter-spacing: 0.06em; font-weight: 700; padding: 9px 11px; border-radius: 999px; color: var(--muted); }
-    .switch button[aria-pressed=true] { background: var(--gold); color: #1b1410; }
+    .switch { 
+      display: flex; gap: 3px; padding: 4px; 
+      background: rgba(0, 0, 0, 0.6); 
+      border: 1px solid var(--line); 
+      border-radius: 999px; 
+    }
+    .switch button { 
+      font-size: 0.68rem; letter-spacing: 0.08em; font-weight: 600; 
+      padding: 8px 14px; border-radius: 999px; color: var(--muted); 
+      border: none; background: transparent; transition: all 0.2s;
+    }
+    .switch button[aria-pressed=true] { background: var(--gold); color: #0D0D0D; }
     
-    .gateway { min-height: 100vh; background: radial-gradient(ellipse at 50% 5%, #6b4328, var(--bg) 48%, #0d0d0d); padding: 55px 0; position: relative; isolation: isolate; }
-    .gateway-card, .card, .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 19px; overflow: hidden; box-shadow: 0 16px 36px #0003; }
-    .gateway-card { display: block; width: 100%; text-align: left; transition: transform 0.25s, border-color 0.25s; }
-    .gateway-card:hover, .card:hover { transform: translateY(-3px); border-color: var(--gold); }
-    .gateway-card img { display: block; width: 100%; height: clamp(180px, 42vw, 250px); object-fit: contain; padding: 14px; background: #171310; }
-    .gateway-card .copy { display: block; padding: 21px; }
+    .gateway { 
+      min-height: 100vh; 
+      background: radial-gradient(circle at 50% 10%, #3A2518 0%, var(--bg) 65%); 
+      padding: 60px 0; 
+      position: relative; 
+      display: flex; align-items: center;
+    }
+    .gateway-card, .card, .panel { 
+      background: var(--card-bg); 
+      border: 1px solid var(--line); 
+      border-radius: 12px; 
+      overflow: hidden; 
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6); 
+    }
+    .gateway-card { 
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%; text-align: center; padding: 32px 24px;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; 
+    }
+    .gateway-card:hover { 
+      transform: translateY(-4px); 
+      border-color: var(--gold); 
+      box-shadow: 0 20px 50px rgba(200, 169, 107, 0.15); 
+    }
     
-    .hero { min-height: 400px; position: relative; overflow: hidden; border-radius: 23px; background: #241b17; margin-bottom: 2rem;}
-    .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-    .hero:after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #110d0bee, #140e0aaa 60%, transparent); }
-    .hero-copy { position: relative; z-index: 1; max-width: 610px; padding: 38px 27px; }
+    .hero { 
+      min-height: 420px; position: relative; overflow: hidden; 
+      border-radius: 14px; background: #1A1412; border: 1px solid var(--line);
+    }
+    .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.45; }
+    .hero:after { 
+      content: ""; position: absolute; inset: 0; 
+      background: linear-gradient(90deg, rgba(13,13,13,0.95) 0%, rgba(13,13,13,0.7) 50%, transparent 100%); 
+    }
+    .hero-copy { position: relative; z-index: 1; max-width: 620px; padding: 48px 32px; }
     
-    .section { padding-top: 47px; scroll-margin-top: 88px; }
-    .rail { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 17px; scrollbar-width: none; }
+    .section { padding-top: 48px; scroll-margin-top: 80px; }
+    .rail { 
+      display: flex; gap: 14px; overflow-x: auto; 
+      scroll-snap-type: x mandatory; padding: 6px 2px 20px; 
+      scrollbar-width: none; 
+    }
     .rail::-webkit-scrollbar { display: none; }
-    .rail > * { flex: 0 0 min(77vw, 290px); scroll-snap-align: start; }
+    .rail > * { flex: 0 0 min(78vw, 300px); scroll-snap-align: start; }
     
-    .card img { width: 100%; height: 200px; object-fit: cover; }
-    .card-body { padding: 17px; }
-    .card-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 15px; }
+    .card img { width: 100%; height: 190px; object-fit: cover; border-bottom: 1px solid var(--line); }
+    .card-body { padding: 20px; }
+    .card-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 18px; }
     
-    .glass { background: linear-gradient(130deg, rgba(49,37,30,0.9), rgba(23,19,16,0.95)); border: 1px solid var(--line); border-radius: 20px; padding: 22px; box-shadow: 0 20px 50px #0005; }
-    .sweets .glass { background: linear-gradient(130deg, rgba(52,33,40,0.9), rgba(23,16,19,0.95)); }
+    .editorial { 
+      display: grid; overflow: hidden; border: 1px solid var(--line); 
+      border-radius: 14px; background: var(--panel); 
+    }
+    .editorial img { width: 100%; height: 260px; object-fit: cover; }
+    .editorial > div { padding: 32px; }
     
-    /* Navigation */
-    .bottom { position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; background: rgba(36, 26, 22, 0.95); backdrop-filter: blur(16px); border-top: 1px solid var(--line); display: flex; justify-content: space-around; padding: 8px 6px calc(9px + env(safe-area-inset-bottom)); }
-    .sweets .bottom { background: rgba(26, 17, 19, 0.95); }
-    .bottom button { min-width: 55px; min-height: 49px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--muted); font-size: 0.65rem; font-weight: 500;}
+    .glass { 
+      background: linear-gradient(135deg, rgba(36,26,22,0.75), rgba(13,13,13,0.92)); 
+      border: 1px solid var(--line); 
+      border-radius: 14px; padding: 28px; 
+      box-shadow: 0 20px 45px rgba(0,0,0,0.5); 
+    }
+    .sweets .glass { 
+      background: linear-gradient(135deg, rgba(40,23,30,0.75), rgba(14,9,11,0.92)); 
+    }
+    
+    .field { 
+      display: block; width: 100%; min-height: 48px; 
+      border: 1px solid var(--line); 
+      background: rgba(0, 0, 0, 0.4); 
+      color: var(--ink); 
+      border-radius: 6px; padding: 12px 14px; 
+      transition: border-color 0.2s;
+    }
+    .field:focus { outline: none; border-color: var(--gold); }
+    .label { display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin: 0 0 8px; color: var(--gold); }
+    .option { 
+      display: flex; align-items: center; gap: 10px; min-height: 48px; 
+      padding: 10px 14px; border: 1px solid var(--line); 
+      border-radius: 6px; margin-top: 8px; background: rgba(0,0,0,0.25);
+    }
+    .option:has(input:checked) { background: rgba(200, 169, 107, 0.12); border-color: var(--gold); }
+    input[type=checkbox], input[type=radio] { accent-color: var(--gold); width: 18px; height: 18px; }
+    .fine { font-size: 0.82rem; line-height: 1.6; color: var(--muted); }
+    
+    .bottom { 
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; 
+      background: rgba(13, 13, 13, 0.96); 
+      backdrop-filter: blur(20px); 
+      border-top: 1px solid var(--line); 
+      display: flex; justify-content: space-around; 
+      padding: 8px 6px calc(10px + env(safe-area-inset-bottom)); 
+    }
+    .sweets .bottom { background: rgba(14, 9, 11, 0.96); }
+    .bottom button { 
+      min-width: 58px; min-height: 49px; 
+      display: flex; flex-direction: column; align-items: center; justify-content: center; 
+      gap: 3px; color: var(--muted); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.05em;
+      border: none; background: transparent;
+    }
     .bottom svg { width: 20px; height: 20px; }
-    .bottom .order { background: var(--accent); color: white; border-radius: 15px; transform: translateY(-9px); min-height: 60px; font-weight: 700;}
-    .sweets .bottom .order { background: var(--gold); color: #17100f; }
-
-    .bottom button.active { color: var(--accent); }
-    .sweets .bottom button.active { color: var(--gold); }
+    .bottom .order { 
+      background: var(--accent); color: #0D0D0D; 
+      border-radius: 12px; transform: translateY(-8px); 
+      min-height: 56px; padding: 0 16px; font-weight: 700;
+    }
     
+    .backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(4px); z-index: 50; }
+    .sheet { 
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 51; 
+      max-height: 90vh; overflow: auto; 
+      background: var(--panel); 
+      border: 1px solid var(--line); 
+      border-radius: 20px 20px 0 0; 
+      box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.8); 
+    }
+    .sheet-head { 
+      position: sticky; top: 0; background: var(--panel); 
+      border-bottom: 1px solid var(--line); 
+      padding: 18px 24px; z-index: 2; 
+      display: flex; justify-content: space-between; align-items: center; 
+    }
+    .sheet-content { padding: 24px; }
+    .line-item { border-bottom: 1px solid var(--line); padding: 16px 0; }
+    
+    .toast { 
+      position: fixed; z-index: 60; bottom: 95px; left: 50%; transform: translateX(-50%); 
+      background: #241A16; border: 1px solid var(--gold); color: var(--ink); 
+      padding: 12px 20px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
+      width: max-content; max-width: 90%; font-size: 0.85rem; font-weight: 500;
+    }
+    
+    .day-pill {
+      flex: 0 0 auto;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.4);
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    .day-pill.active {
+      border-color: var(--gold);
+      background: var(--gold);
+      color: #0D0D0D;
+    }
+    
+    @media(min-width: 768px) {
+      .hero { min-height: 460px; }
+      .hero-copy { padding: 64px 48px; }
+      .editorial { grid-template-columns: 1fr 1fr; }
+      .editorial img { height: 100%; min-height: 340px; }
+      .sheet { inset: 0 0 0 auto; width: min(100%, 540px); max-height: none; border-radius: 16px 0 0 16px; }
+      .bottom { left: 50%; right: auto; transform: translateX(-50%); width: min(100%, 540px); border-radius: 16px 16px 0 0; }
+    }
     [hidden] { display: none !important; }
   </style>
 </head>
 <body>
-  
-  <header id="top" class="top" hidden>
-    <div class="wrap flex items-center justify-between gap-2 py-3">
-      <div class="min-w-0">
-        <span class="serif block text-lg uppercase tracking-widest text-[#F5EFE5]" id="header-brand">DIRT ROAD</span>
-      </div>
-      <div class="switch" role="group" aria-label="Switch storefront">
-        <button id="switch-soul" aria-pressed="true" type="button">SOUL KITCHEN</button>
-        <button id="switch-sweets" aria-pressed="false" type="button">CONFECTIONS</button>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- Gateway -->
-    <section id="gateway" class="gateway">
-      <div class="wrap max-w-[900px] text-center">
-        <div class="mx-auto mb-4 w-16 h-16 rounded-full border border-[var(--gold)] grid place-items-center text-[var(--gold)]">
-          <i data-lucide="trees"></i>
+  <div class="app">
+    <!-- Header -->
+    <header id="top" class="top" hidden>
+      <div class="wrap flex items-center justify-between gap-2 py-3.5">
+        <div class="min-w-0">
+          <span class="serif block text-lg font-semibold tracking-wider text-[var(--ink)]">DIRT ROAD</span>
+          <span class="eyebrow block text-[10px] text-[var(--gold)]">Two experiences. One road.</span>
         </div>
-        <p class="eyebrow">ROOTED IN SOMETHING GOOD</p>
-        <h1 class="serif text-[clamp(3rem,10vw,5rem)] mt-3">DIRT ROAD</h1>
-        <p class="mt-3 text-lg">Two companies. Two experiences. One Dirt Road.</p>
-        <h2 class="serif text-3xl mt-10 mb-8">Where will the road take you?</h2>
-        
-        <div class="grid sm:grid-cols-2 gap-6 text-left">
-          <button type="button" data-enter="soul" class="gateway-card">
-            <img src="https://images.pexels.com/photos/60616/pexels-photo-60616.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Soul Kitchen" style="object-fit: cover;">
-            <span class="copy">
-              <span class="serif block text-2xl">Soul Kitchen</span>
-              <span class="text-sm block mt-2 text-[var(--muted)]">Soul food roots. Unexpected plates.</span>
-              <span class="eyebrow block mt-5 text-[var(--accent)]">ENTER THE KITCHEN ↗</span>
-            </span>
-          </button>
+        <div class="switch" role="group" aria-label="Switch storefront">
+          <button id="switch-soul" aria-pressed="true" type="button">SOUL KITCHEN</button>
+          <button id="switch-sweets" aria-pressed="false" type="button">CONFECTIONS</button>
+        </div>
+        <button id="top-cart" class="outline relative flex items-center justify-center p-2.5" type="button" aria-label="Open sample cart">
+          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+          <span id="cart-count" class="absolute -right-2 -top-2 rounded-full bg-[var(--gold)] text-[#0D0D0D] font-bold px-1.5 py-0.2 text-[10px]">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Gateway -->
+      <section id="gateway" class="gateway">
+        <div class="wrap max-w-4xl text-center">
+          <div class="mx-auto mb-5 w-16 h-16 rounded-full border border-[var(--gold)] grid place-items-center text-[var(--gold)]">
+            <i data-lucide="trees" class="w-8 h-8"></i>
+          </div>
+          <p class="eyebrow">ROOTED IN SOMETHING GOOD</p>
+          <h1 class="serif text-[clamp(2.8rem,7vw,4.5rem)] mt-2">DIRT ROAD</h1>
+          <p class="fine text-base mt-2 max-w-md mx-auto">Two companies. Two experiences. One Dirt Road.</p>
+          <h2 class="serif text-2xl mt-8 mb-8 text-[var(--ink)]">Where will the road take you?</h2>
           
-          <button type="button" data-enter="sweets" class="gateway-card">
-            <img src="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Confections" style="object-fit: cover;">
-            <span class="copy">
-              <span class="serif block text-2xl">Confections</span>
-              <span class="text-sm block mt-2 text-[var(--muted)]">Dessert, design, gifting and celebration.</span>
-              <span class="eyebrow block mt-5 text-[var(--gold)]">ENTER CONFECTIONS ↗</span>
-            </span>
+          <div class="grid md:grid-cols-2 gap-6 text-left">
+            <button type="button" data-enter="soul" class="gateway-card">
+              <div class="w-full max-w-[240px] aspect-square rounded-lg overflow-hidden border border-[var(--line)] shadow-2xl mb-5">
+                <img src="assets/soul-logo.jpg" alt="Dirt Road Soul Kitchen Logo" class="w-full h-full object-cover">
+              </div>
+              <span class="serif block text-2xl text-[var(--ink)]">Soul Kitchen</span>
+              <span class="fine block mt-2 text-center">Familiar flavors. Unexpected plates.</span>
+              <span class="eyebrow block mt-5 py-2 px-4 border border-[var(--accent)] rounded text-[var(--accent)]">ENTER THE KITCHEN ↗</span>
+            </button>
+            
+            <button type="button" data-enter="sweets" class="gateway-card">
+              <div class="w-full max-w-[240px] aspect-square rounded-lg overflow-hidden border border-[var(--line)] shadow-2xl mb-5">
+                <img src="assets/confections-logo.jpg" alt="Dirt Road Confections Logo" class="w-full h-full object-cover">
+              </div>
+              <span class="serif block text-2xl text-[var(--ink)]">Confections</span>
+              <span class="fine block mt-2 text-center">Not Just Dessert. The Final Impression.</span>
+              <span class="eyebrow block mt-5 py-2 px-4 border border-[var(--gold)] rounded text-[var(--gold)]">ENTER CONFECTIONS ↗</span>
+            </button>
+          </div>
+          <button id="shop-both" type="button" class="outline mt-8 text-xs tracking-widest uppercase">Explore both storefronts</button>
+        </div>
+      </section>
+
+      <!-- Storefronts -->
+      <div id="store" hidden>
+        <div class="wrap pt-5">
+          
+          <!-- SOUL KITCHEN VIEW -->
+          <section id="soul-view">
+            <!-- Dynamic Daily Drop Hero Banner -->
+            <div class="hero">
+              <img id="soul-hero-img" loading="lazy" src="https://images.pexels.com/photos/628776/pexels-photo-628776.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Daily soul drop">
+              <div class="hero-copy">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="eyebrow text-[var(--gold)]" id="hero-badge">TODAY'S DROP</span>
+                  <span class="text-xs bg-emerald-900/60 text-emerald-300 border border-emerald-700/50 px-2 py-0.5 rounded font-medium" id="hero-status">LIVE DROP ACTIVE</span>
+                </div>
+                <h1 id="hero-dish-name" class="serif text-[clamp(2.2rem,5vw,3.6rem)] mt-2">Daily Drop</h1>
+                <p id="hero-dish-desc" class="mt-3 text-lg font-light text-[var(--ink)]">Each plate includes your choice of sides, cornbread, and an artisan Confections sweet finish.</p>
+                <div class="flex flex-wrap items-center gap-4 mt-6">
+                  <button id="order-hero-btn" type="button" class="btn">BUILD & ORDER PLATE ↗</button>
+                  <span class="text-xs font-semibold tracking-wider text-[var(--gold)]" id="preorder-callout">⚡ Pre-order tomorrow & save $2.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- November 2026 Calendar Bar -->
+            <div class="mt-8">
+              <div class="flex justify-between items-end mb-3">
+                <div>
+                  <p class="eyebrow">NOVEMBER 2026 MASTER ROSTER</p>
+                  <h2 class="serif text-2xl mt-1">Daily Culinary Palates</h2>
+                </div>
+                <div class="flex gap-2">
+                  <button id="tab-today" class="chip" aria-pressed="true">TODAY</button>
+                  <button id="tab-tomorrow" class="chip" aria-pressed="false">TOMORROW (-$2)</button>
+                </div>
+              </div>
+              <div id="nov-calendar-rail" class="rail !gap-2 !py-2"></div>
+            </div>
+
+            <!-- Wednesday Member Vote Card -->
+            <div class="glass mt-8 border border-[var(--gold)]/40 relative overflow-hidden">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">🗳️</span>
+                  <h3 class="serif text-xl text-[var(--ink)]">The Community Table · Member Vote</h3>
+                </div>
+                <span class="eyebrow text-xs">VOTING FOR NEXT WEDNESDAY</span>
+              </div>
+              <p class="fine text-sm">Every Wednesday's special is decided by your votes. Vote for your top dish below:</p>
+              
+              <div class="mt-4 space-y-3" id="vote-options">
+                <div class="option !mt-0 flex-col !items-stretch">
+                  <label class="flex items-center gap-3 w-full cursor-pointer">
+                    <input type="radio" name="wed-vote" value="0">
+                    <span class="font-medium text-sm flex-1">Brown Butter Bourbon Chicken</span>
+                    <span class="text-xs font-bold text-[var(--gold)]" id="vote-pct-0">44%</span>
+                  </label>
+                  <div class="w-full bg-black/40 h-1.5 rounded-full mt-2 overflow-hidden">
+                    <div class="bg-[var(--gold)] h-full" id="vote-bar-0" style="width: 44%"></div>
+                  </div>
+                </div>
+
+                <div class="option !mt-0 flex-col !items-stretch">
+                  <label class="flex items-center gap-3 w-full cursor-pointer">
+                    <input type="radio" name="wed-vote" value="1">
+                    <span class="font-medium text-sm flex-1">West African Peanut Stew with Fufu</span>
+                    <span class="text-xs font-bold text-[var(--gold)]" id="vote-pct-1">36%</span>
+                  </label>
+                  <div class="w-full bg-black/40 h-1.5 rounded-full mt-2 overflow-hidden">
+                    <div class="bg-[var(--gold)] h-full" id="vote-bar-1" style="width: 36%"></div>
+                  </div>
+                </div>
+
+                <div class="option !mt-0 flex-col !items-stretch">
+                  <label class="flex items-center gap-3 w-full cursor-pointer">
+                    <input type="radio" name="wed-vote" value="2">
+                    <span class="font-medium text-sm flex-1">Garlic Butter Steak Bites</span>
+                    <span class="text-xs font-bold text-[var(--gold)]" id="vote-pct-2">20%</span>
+                  </label>
+                  <div class="w-full bg-black/40 h-1.5 rounded-full mt-2 overflow-hidden">
+                    <div class="bg-[var(--gold)] h-full" id="vote-bar-2" style="width: 20%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <button id="cast-vote-btn" class="btn !min-h-[38px] py-2 px-5 text-xs">CAST MY VOTE</button>
+                <span id="vote-status" class="fine text-xs text-[var(--gold)]"></span>
+              </div>
+            </div>
+
+            <!-- Active Day Details (Breakfast, Lunch, Dinner) -->
+            <section class="section">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow" id="service-section-kicker">SELECTED SERVICE DAY</p>
+                  <h2 class="serif text-3xl mt-1" id="service-section-title">Today's Meals</h2>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-3 gap-6" id="daily-services-grid">
+                <!-- Breakfast Card -->
+                <div class="card">
+                  <div class="p-6">
+                    <p class="eyebrow text-[10px]">MORNING SERVICE (7:30 AM - 10:30 AM)</p>
+                    <h3 class="serif text-2xl mt-1" id="b-title">Breakfast Drop</h3>
+                    <p class="fine mt-2 text-sm" id="b-desc"></p>
+                    <div class="card-actions mt-6">
+                      <span class="font-medium text-lg" id="b-price">$12</span>
+                      <button class="btn w-auto py-2 px-4 text-xs" id="b-order-btn">Order Drop</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Lunch Card -->
+                <div class="card border border-[var(--gold)]/40">
+                  <div class="p-6">
+                    <div class="flex justify-between items-start">
+                      <p class="eyebrow text-[10px]">MIDDAY DROP (11:30 AM - 2:00 PM)</p>
+                      <span class="text-[10px] bg-[var(--gold)] text-[#0D0D0D] px-2 py-0.5 rounded font-bold">INCLUDES SWEET</span>
+                    </div>
+                    <h3 class="serif text-2xl mt-1" id="l-title">Lunch Feature</h3>
+                    <p class="fine mt-2 text-sm" id="l-desc"></p>
+                    <p class="text-xs text-[var(--gold)] mt-2 font-medium" id="l-sweet"></p>
+                    <div class="card-actions mt-6">
+                      <span class="font-medium text-lg" id="l-price">$14</span>
+                      <button class="btn w-auto py-2 px-4 text-xs" id="l-order-btn">Customize Meal</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Dinner Card -->
+                <div class="card border border-[var(--accent)]">
+                  <div class="p-6">
+                    <div class="flex justify-between items-start">
+                      <p class="eyebrow text-[10px]">EVENING FEAST (4:30 PM - 7:30 PM)</p>
+                      <span class="text-[10px] bg-[var(--accent)] text-[#0D0D0D] px-2 py-0.5 rounded font-bold">FULL DINNER</span>
+                    </div>
+                    <h3 class="serif text-2xl mt-1" id="d-title">Dinner Feature</h3>
+                    <p class="fine mt-2 text-sm" id="d-desc"></p>
+                    <p class="text-xs text-[var(--gold)] mt-2 font-medium" id="d-sweet"></p>
+                    <div class="card-actions mt-6">
+                      <span class="font-medium text-lg" id="d-price">$21</span>
+                      <button class="btn w-auto py-2 px-4 text-xs" id="d-order-btn">Build Plate</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Permanent Signatures Rail -->
+            <section class="section">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">PRE-ORDER ROSTER</p>
+                  <h2 class="serif text-3xl mt-1">House Signatures & Cuts</h2>
+                </div>
+              </div>
+              <div class="rail">
+                <article class="card">
+                  <img loading="lazy" src="https://images.pexels.com/photos/60616/pexels-photo-60616.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Dirt Road Chicken">
+                  <div class="card-body">
+                    <p class="eyebrow text-[10px]">MONDAY HERITAGE</p>
+                    <h3 class="serif text-xl mt-1">Dirt Road Chicken Plate</h3>
+                    <p class="fine mt-2">Crispy, oven-roasted, or smothered + sides + cornbread + dessert.</p>
+                    <div class="card-actions">
+                      <span class="font-medium text-lg">From $19</span>
+                      <button class="btn" type="button" onclick="openPlateBuilder('dirt-chicken')">Build +</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card">
+                  <img loading="lazy" src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Bourbon Chicken">
+                  <div class="card-body">
+                    <p class="eyebrow text-[10px]">ISLAND & BOURBON</p>
+                    <h3 class="serif text-xl mt-1">Brown Butter Bourbon Chicken</h3>
+                    <p class="fine mt-2">Rich bourbon brown butter glaze + sides + cornbread + dessert.</p>
+                    <div class="card-actions">
+                      <span class="font-medium text-lg">From $21</span>
+                      <button class="btn" type="button" onclick="openPlateBuilder('bourbon-chicken')">Build +</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card">
+                  <img loading="lazy" src="https://images.pexels.com/photos/262959/pexels-photo-262959.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="African Stew">
+                  <div class="card-body">
+                    <p class="eyebrow text-[10px]">AFRICAN FUSION</p>
+                    <h3 class="serif text-xl mt-1">African Peanut Stew & Fufu</h3>
+                    <p class="fine mt-2">Slow-simmered groundnut stew with traditional pounded Fufu.</p>
+                    <div class="card-actions">
+                      <span class="font-medium text-lg">From $22</span>
+                      <button class="btn" type="button" onclick="openPlateBuilder('african-stew')">Build +</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card">
+                  <img loading="lazy" src="https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Honey Garlic Salmon">
+                  <div class="card-body">
+                    <p class="eyebrow text-[10px]">COASTAL SATURDAY</p>
+                    <h3 class="serif text-xl mt-1">Honey Garlic Glazed Salmon</h3>
+                    <p class="fine mt-2">Pan-seared Atlantic salmon with sticky garlic honey glaze.</p>
+                    <div class="card-actions">
+                      <span class="font-medium text-lg">From $25</span>
+                      <button class="btn" type="button" onclick="openPlateBuilder('salmon')">Build +</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card">
+                  <img loading="lazy" src="https://images.pexels.com/photos/323682/pexels-photo-323682.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Oxtails">
+                  <div class="card-body">
+                    <p class="eyebrow text-[10px]">SUNDAY FEAST</p>
+                    <h3 class="serif text-xl mt-1">Dirt Road Oxtails</h3>
+                    <p class="fine mt-2">Slow-braised oxtails over seasoned rice with deep pan gravy.</p>
+                    <div class="card-actions">
+                      <span class="font-medium text-lg">From $28</span>
+                      <button class="btn" type="button" onclick="openPlateBuilder('oxtails')">Build +</button>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </section>
+
+          <!-- CONFECTIONS VIEW -->
+          <section id="sweets-view" hidden>
+            <div class="hero">
+              <img loading="lazy" src="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Designer cake">
+              <div class="hero-copy">
+                <p class="eyebrow text-[var(--gold)]">DIRT ROAD · CONFECTIONS</p>
+                <h1 class="serif text-[clamp(2.2rem,5vw,3.6rem)] mt-3">Designed to Be<br>Remembered.</h1>
+                <p class="mt-3 text-lg font-light text-[var(--ink)]">Not Just Dessert. The Final Impression.</p>
+                <p class="fine mt-2">A luxury dessert, custom treat, celebration and gifting studio.</p>
+                <button type="button" class="btn mt-6" onclick="document.getElementById('sweets-catalog').scrollIntoView({behavior:'smooth'})">EXPLORE THE EDIT ↗</button>
+              </div>
+            </div>
+
+            <!-- Signature Slices & Daily House Sweets -->
+            <section id="sweets-catalog" class="section">
+              <p class="eyebrow">DAILY BAKERY DROP</p>
+              <h2 class="serif text-3xl mt-1">Signature Slices & Cups</h2>
+              <div class="rail mt-6">
+                <article class="card">
+                  <img loading="lazy" src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Red Velvet">
+                  <div class="card-body">
+                    <h3 class="serif text-xl">Red Velvet Cake Slice</h3>
+                    <p class="fine mt-2">Scratch red velvet with rich cream cheese frosting.</p>
+                    <div class="card-actions">
+                      <span class="font-medium text-lg">$7.00</span>
+                      <button class="btn" type="button" onclick="addDirectConfection('Red Velvet Cake Slice', 7)">Add +</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card">
+                  <img loading="lazy" src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Strawberry Crunch">
+                  <div class="card-body">
+                    <h3 class="serif text-xl">Strawberry Crunch Slice</h3>
+                    <p class="fine mt-2">Sweet strawberry crumb layer with vanilla cream.</p>
+                    <div class="card-actions">
+                      <span class="font-medium text-lg">$8.00</span>
+                      <button class="btn" type="button" onclick="addDirectConfection('Strawberry Crunch Slice', 8)">Add +</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card">
+                  <img loading="lazy" src="https://images.pexels.com/photos/3026804/pexels-photo-3026804.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Banana Pudding">
+                  <div class="card-body">
+                    <h3 class="serif text-xl">Signature Banana Pudding Cup</h3>
+                    <p class="fine mt-2">Velvety scratch vanilla pudding with softened wafers.</p>
+                    <div class="card-actions">
+                      <span class="font-medium text-lg">$7.00</span>
+                      <button class="btn" type="button" onclick="addDirectConfection('Signature Banana Pudding Cup', 7)">Add +</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card">
+                  <img loading="lazy" src="https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Cookie Box">
+                  <div class="card-body">
+                    <h3 class="serif text-xl">The Cookie Edit Box (6)</h3>
+                    <p class="fine mt-2">Six assorted signature stuffed and gourmet cookies.</p>
+                    <div class="card-actions">
+                      <span class="font-medium text-lg">$18.00</span>
+                      <button class="btn" type="button" onclick="addDirectConfection('The Cookie Edit Box (6)', 18)">Add +</button>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- Bespoke Studio Inquiries -->
+            <section class="section pb-10">
+              <div class="glass text-center">
+                <p class="eyebrow">BESPOKE / CONFECTIONS</p>
+                <h2 class="serif text-3xl mt-2">Custom Celebration Studio</h2>
+                <p class="fine mt-3 max-w-lg mx-auto">Planning a milestone? Inquire for designer tiered cakes, custom treat suites, or personalized gift boxes.</p>
+                <div class="flex flex-wrap justify-center gap-3 mt-6">
+                  <button class="btn" type="button" onclick="notify('Cake Studio inquiry modal opening...')">Cake Studio</button>
+                  <button class="outline" type="button" onclick="notify('Treat Studio inquiry modal opening...')">Treat Studio</button>
+                  <button class="outline" type="button" onclick="notify('Gift Box builder opening...')">Gift Box Builder</button>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <!-- Favorites View -->
+          <section id="favorites-view" class="section pb-10" hidden>
+            <p class="eyebrow">YOUR SHORTLIST</p>
+            <h1 class="serif text-4xl mt-2">Saved for Later</h1>
+            <p id="favorites-list" class="fine mt-5 text-base"></p>
+          </section>
+
+          <!-- Account View -->
+          <section id="account-view" class="section max-w-2xl mx-auto pb-10" hidden>
+            <p class="eyebrow">THE DIRT ROAD HOUSE</p>
+            <h1 class="serif text-4xl mt-2">Member Account & Rewards</h1>
+            <div class="glass mt-6">
+              <h2 class="serif text-2xl">Dirt Road Rewards</h2>
+              <p class="fine mt-2">You have <strong>120 Road Points</strong> earned from your weekly drops.</p>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav id="bottom-nav" class="bottom" hidden>
+      <button data-nav="home" type="button"><i data-lucide="home"></i>Home</button>
+      <button data-nav="browse" type="button"><i data-lucide="calendar"></i>Schedule</button>
+      <button data-nav="cart" type="button" class="order"><i data-lucide="shopping-bag"></i>ORDER</button>
+      <button data-nav="favorites" type="button"><i data-lucide="heart"></i>Saved</button>
+      <button data-nav="account" type="button"><i data-lucide="user"></i>Account</button>
+    </nav>
+
+    <!-- Backdrop -->
+    <div id="backdrop" class="backdrop" hidden></div>
+
+    <!-- Complete Plate Builder Sheet (Tiered Sides + Sweet Finish + Pre-Order Discount) -->
+    <section id="plate-sheet" class="sheet" role="dialog" aria-modal="true" hidden>
+      <div class="sheet-head">
+        <div>
+          <p class="eyebrow" id="pb-eyebrow">MEAL BUILDER</p>
+          <h2 class="serif text-2xl mt-1" id="pb-title">Build Your Plate</h2>
+        </div>
+        <button type="button" data-close class="outline text-sm">✕</button>
+      </div>
+      <div class="sheet-content">
+        <!-- Pre-Order Discount Callout -->
+        <div id="pb-discount-banner" class="bg-[var(--gold)]/10 border border-[var(--gold)]/40 rounded p-3 mb-5 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-sm">⚡</span>
+            <span class="text-xs font-bold tracking-wider text-[var(--gold)]">DAY-BEFORE PRE-ORDER APPLIED</span>
+          </div>
+          <span class="text-xs font-bold text-emerald-400">-$2.00 OFF</span>
+        </div>
+
+        <!-- Step 1: Select Plate Tier -->
+        <label class="label">1. Select Plate Tier</label>
+        <div class="grid grid-cols-3 gap-2" id="tier-selector">
+          <button type="button" class="outline p-3 text-center !min-h-0" data-tier="kids">
+            <span class="block text-xs font-bold">Lil' Road</span>
+            <span class="fine block text-[10px]">1 Side + Mini</span>
+            <span class="block text-xs font-semibold mt-1" id="tier-price-kids">$11</span>
           </button>
+          <button type="button" class="outline p-3 text-center !min-h-0" data-tier="regular" aria-pressed="true">
+            <span class="block text-xs font-bold">Regular</span>
+            <span class="fine block text-[10px]">2 Sides + Cup</span>
+            <span class="block text-xs font-semibold mt-1" id="tier-price-regular">$21</span>
+          </button>
+          <button type="button" class="outline p-3 text-center !min-h-0" data-tier="large">
+            <span class="block text-xs font-bold">Large Plate</span>
+            <span class="fine block text-[10px]">3 Sides + Slice</span>
+            <span class="block text-xs font-semibold mt-1" id="tier-price-large">$26</span>
+          </button>
+        </div>
+
+        <!-- Step 2: Choose Sides -->
+        <div class="mt-6">
+          <div class="flex justify-between items-center mb-1">
+            <label class="label !mb-0" id="sides-legend">2. Select Your Sides (Choose 2)</label>
+            <span class="text-xs font-bold text-[var(--gold)]" id="sides-count-status">0/2</span>
+          </div>
+          <div id="sides-container" class="space-y-1"></div>
+        </div>
+
+        <!-- Step 3: Confections Sweet Finish (Included) -->
+        <div class="mt-6">
+          <label class="label">3. Confections Sweet Finish (Included)</label>
+          <div class="space-y-1" id="sweets-container"></div>
+        </div>
+
+        <!-- Step 4: Special Notes -->
+        <div class="mt-6">
+          <label for="plate-notes" class="label">4. Special Instructions</label>
+          <textarea id="plate-notes" rows="2" class="field" placeholder="Sauce on the side, allergies, etc."></textarea>
+        </div>
+
+        <!-- Footer / Total / Add to Cart -->
+        <div class="flex items-center justify-between pt-6 mt-6 border-t border-[var(--line)]">
+          <div>
+            <span class="text-xs text-[var(--muted)] block">Plate Total</span>
+            <span class="text-2xl font-bold text-[var(--gold)]" id="pb-final-price">$21.00</span>
+          </div>
+          <button id="pb-add-btn" class="btn px-8" type="button">ADD COMPLETE MEAL</button>
         </div>
       </div>
     </section>
 
-    <!-- App Content -->
-    <div id="store" hidden>
-      <div class="wrap pt-5">
-        
-        <!-- SOUL KITCHEN VIEW -->
-        <section id="soul-view">
-          <div class="hero">
-            <img src="https://images.pexels.com/photos/628776/pexels-photo-628776.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Savory dinner">
-            <div class="hero-copy">
-              <p class="eyebrow text-[var(--accent)]">DIRT ROAD · SOUL KITCHEN</p>
-              <h1 class="serif text-4xl mt-4">Rooted in Flavor.<br><span class="text-[var(--gold)] italic">Made With Soul.</span></h1>
-              <p class="mt-4 text-lg">Familiar flavors. Unexpected plates.</p>
-              <button type="button" class="btn mt-6">ORDER FOR TONIGHT ↗</button>
-            </div>
-          </div>
-          
-          <nav class="rail mt-5">
-            <a href="#" class="chip" aria-pressed="true">SIGNATURES</a>
-            <a href="#" class="chip">FROM THE WATER</a>
-            <a href="#" class="chip">FAMILY MEALS</a>
-            <a href="#" class="chip">THE SIDES</a>
-          </nav>
-
-          <section class="section">
-            <p class="eyebrow">THE ROAD SIGNATURES</p>
-            <h2 class="serif text-3xl mt-2 mb-5">Featured Plates</h2>
-            <div class="rail">
-              <article class="card">
-                <img src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=800">
-                <div class="card-body">
-                  <h3 class="serif text-xl">Brown Butter Bourbon Chicken</h3>
-                  <p class="text-sm mt-2 text-[var(--muted)]">Brown butter depth with a warm bourbon finish.</p>
-                  <div class="card-actions">
-                    <span>$22.00</span>
-                    <button class="btn">Add +</button>
-                  </div>
-                </div>
-              </article>
-              <article class="card">
-                <img src="https://images.pexels.com/photos/675951/pexels-photo-675951.jpeg?auto=compress&cs=tinysrgb&w=800">
-                <div class="card-body">
-                  <h3 class="serif text-xl">Braised Short Rib & Gravy</h3>
-                  <p class="text-sm mt-2 text-[var(--muted)]">Deeply braised comfort with a polished finish.</p>
-                  <div class="card-actions">
-                    <span>$29.00</span>
-                    <button class="btn">Add +</button>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </section>
-        </section>
-
-        <!-- CONFECTIONS VIEW -->
-        <section id="sweets-view" hidden>
-          <div class="hero">
-            <img src="https://images.pexels.com/photos/264939/pexels-photo-264939.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Celebration cake">
-            <div class="hero-copy">
-              <p class="eyebrow text-[var(--gold)]">DIRT ROAD · CONFECTIONS</p>
-              <h1 class="serif text-4xl mt-4">Designed to Be<br><span class="text-[var(--gold)] italic">Remembered.</span></h1>
-              <p class="mt-4 text-lg">A luxury dessert and gifting studio.</p>
-              <button type="button" class="btn mt-6">INQUIRE NOW ↗</button>
-            </div>
-          </div>
-          
-          <nav class="rail mt-5">
-            <a href="#" class="chip" aria-pressed="true">SIGNATURE EDIT</a>
-            <a href="#" class="chip">BESPOKE CAKES</a>
-            <a href="#" class="chip">GIFT BOXES</a>
-            <a href="#" class="chip">TREAT STUDIO</a>
-          </nav>
-
-          <section class="section">
-            <p class="eyebrow">READY-MADE / THE SLICE</p>
-            <h2 class="serif text-3xl mt-2 mb-5">Signature Edit</h2>
-            <div class="rail">
-              <article class="card">
-                <img src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=800">
-                <div class="card-body">
-                  <h3 class="serif text-xl">Red Velvet Slice</h3>
-                  <p class="text-sm mt-2 text-[var(--muted)]">The signature edit, one beautiful slice at a time.</p>
-                  <div class="card-actions">
-                    <span>$9.00</span>
-                    <button class="btn">Add +</button>
-                  </div>
-                </div>
-              </article>
-              <article class="card">
-                <img src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=800">
-                <div class="card-body">
-                  <h3 class="serif text-xl">Strawberry Crunch Slice</h3>
-                  <p class="text-sm mt-2 text-[var(--muted)]">A playful favorite with an elevated finish.</p>
-                  <div class="card-actions">
-                    <span>$9.00</span>
-                    <button class="btn">Add +</button>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </section>
-        </section>
-        
+    <!-- Cart Drawer -->
+    <aside id="cart-sheet" class="sheet" role="dialog" aria-modal="true" hidden>
+      <div class="sheet-head">
+        <div>
+          <p class="eyebrow">ONE ROAD · ONE CART</p>
+          <h2 class="serif text-2xl mt-1">Your Order</h2>
+        </div>
+        <button type="button" data-close class="outline text-sm">✕</button>
       </div>
-    </div>
-  </main>
+      <div class="sheet-content">
+        <p id="cart-empty" class="fine text-center py-12">Your cart is empty. Pre-order a daily drop to get started.</p>
+        <div id="cart-rows"></div>
+        <div class="flex justify-between pt-5 mt-5 border-t border-[var(--line)] font-bold text-lg">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">$0.00</span>
+        </div>
+        <button class="btn w-full mt-6 text-sm" onclick="notify('Checkout connection ready for live prep!')">SUBMIT FOR PREP</button>
+      </div>
+    </aside>
 
-  <!-- Dynamic Bottom Navigation -->
-  <nav id="bottom-nav" class="bottom" hidden>
-    <button type="button" class="active"><i data-lucide="home"></i>Home</button>
-    <button type="button" id="nav-explore"><i data-lucide="menu"></i>Menu</button>
-    <button type="button" class="order"><i data-lucide="shopping-bag"></i>CART</button>
-    <button type="button" id="nav-action"><i data-lucide="utensils"></i>Catering</button>
-    <button type="button"><i data-lucide="user"></i>Account</button>
-  </nav>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="status" hidden></div>
+  </div>
 
   <script>
-    // Initialize Icons
-    lucide.createIcons();
+  (() => {
+    const $ = id => document.getElementById(id);
+    const money = n => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
 
-    // DOM Elements
-    const switchSoul = document.getElementById('switch-soul');
-    const switchSweets = document.getElementById('switch-sweets');
-    const gateway = document.getElementById('gateway');
-    const store = document.getElementById('store');
-    const viewSoul = document.getElementById('soul-view');
-    const viewSweets = document.getElementById('sweets-view');
-    const topBar = document.getElementById('top');
-    const bottomNav = document.getElementById('bottom-nav');
-    
-    // Dynamic Nav Elements
-    const navExplore = document.getElementById('nav-explore');
-    const navAction = document.getElementById('nav-action');
+    // ==========================================
+    // COMPLETE 30-DAY NOVEMBER 2026 MASTER ROSTER
+    // (November 1, 2026 is a Sunday)
+    // ==========================================
+    const novemberRoster = [
+      // 1: Sun
+      { date: 1, day: "Sun", palate: "The Sunday Table", 
+        breakfast: { title: "Sunday Table Grits & Biscuit Platter", price: 12, desc: "Smoked gouda grits, spicy sausage patty, and honey butter biscuit." },
+        lunch: { title: "Sunday Family Style Chicken Platter", price: 16, desc: "Crispy chicken cuts with honey cornbread.", sweet: "Cinnamon Roll Bite" },
+        dinner: { title: "Dirt Road Oxtails over Seasoned Rice", price: 28, desc: "Slow-braised oxtails simmered in rich pot gravy.", sweet: "Peach Cobbler Parfait Cup" },
+        sides: ["Collard Greens", "Candied Yams", "Five-Cheese Baked Mac", "Black-Eyed Peas"] },
+      // 2: Mon
+      { date: 2, day: "Mon", palate: "West African Diaspora", 
+        breakfast: { title: "Spiced Plantain & Egg Hash", price: 11, desc: "Fried sweet plantains with peppers, onions, and scrambled eggs." },
+        lunch: { title: "Suya Spiced Chicken Bowl", price: 14, desc: "Peanut-spiced grilled chicken over jollof-seasoned rice.", sweet: "Loaded Brownie Bite" },
+        dinner: { title: "West African Peanut Stew with Fufu", price: 22, desc: "Slow-simmered peanut stew with chicken. Served with pounded Fufu.", sweet: "Spiced Caramel Pecan Bite" },
+        sides: ["Pounded Fufu", "Candied Yams", "Five-Cheese Baked Mac", "Collard Greens"] },
+      // 3: Tue
+      { date: 3, day: "Tue", palate: "Island Spice (Caribbean)", 
+        breakfast: { title: "Caribbean Scramble Wrap", price: 11, desc: "Spiced eggs, sweet peppers, and plantains in a warm flatbread." },
+        lunch: { title: "Jerk Chicken Sliders", price: 14, desc: "Slow-smoked jerk chicken with mango slaw on brioche.", sweet: "Pineapple Glazed Cookie" },
+        dinner: { title: "Authentic Jamaican Jerk Chicken", price: 21, desc: "Marinated jerk chicken with coconut rice & peas.", sweet: "Strawberry Crunch Cup" },
+        sides: ["Coconut Rice & Peas", "Southern Cabbage", "Smoked Gouda Grits", "Candied Yams"] },
+      // 4: Wed
+      { date: 4, day: "Wed", palate: "The People's Table (Member Voted)", isVoted: true,
+        breakfast: { title: "Loaded Soul Grits Bowl", price: 11, desc: "Creamy gouda grits with crumbled bacon and melted cheddar." },
+        lunch: { title: "Member Special Lunch Plate", price: 13, desc: "Midweek winner: Pulled pork and cornbread bowl.", sweet: "Signature Cookie Bite" },
+        dinner: { title: "Brown Butter Bourbon Chicken", price: 19, desc: "Community Voted Special: Rich bourbon butter glaze + sides.", sweet: "Red Velvet Cake Slice" },
+        sides: ["Five-Cheese Baked Mac", "Candied Yams", "Green Beans", "Cornbread Dressing"] },
+      // 5: Thu
+      { date: 5, day: "Thu", palate: "Golden Curry Heritage", 
+        breakfast: { title: "Curry Scramble & Gouda Grits", price: 11, desc: "Turmeric-spiced egg scramble with sweet peppers over grits." },
+        lunch: { title: "Coconut Chicken Curry Bowl", price: 15, desc: "Tender chicken curry over seasoned jasmine rice.", sweet: "Lemon Velvet Bite" },
+        dinner: { title: "Slow-Braised Chicken Curry", price: 22, desc: "Thyme and allspice infused curry with potatoes and carrots.", sweet: "Lemon Velvet Cake Slice" },
+        sides: ["Seasoned Jasmine Rice", "Southern Cabbage", "Five-Cheese Baked Mac"] },
+      // 6: Fri
+      { date: 6, day: "Fri", palate: "Coastal & Creole", 
+        breakfast: { title: "Crispy Fish & Gouda Grits", price: 13, desc: "Southern crispy fried fish fillet over hot buttered grits." },
+        lunch: { title: "Crispy Fish Po' Boy", price: 15, desc: "Crispy fillet on French bread with Creole remoulade and slaw.", sweet: "Confections Dipped Oreo" },
+        dinner: { title: "Southern Fried Fish Platter", price: 21, desc: "Crispy Swai or Flounder fillet with scratch tartar sauce.", sweet: "Signature Banana Pudding Cup" },
+        sides: ["Seasoned Rice", "Collard Greens", "Five-Cheese Baked Mac", "Dirty Rice"] },
+      // 7: Sat
+      { date: 7, day: "Sat", palate: "Sweet Heat Coastal", 
+        breakfast: { title: "Chicken & Sweet Potato Waffles", price: 13, desc: "Crispy tenders with hot honey syrup over cinnamon waffles." },
+        lunch: { title: "Hot Honey Chicken Tenders Bowl", price: 14, desc: "Crispy tenders tossed in hot honey butter over baked mac.", sweet: "Gourmet Cookie" },
+        dinner: { title: "Pan-Seared Honey Garlic Salmon", price: 25, desc: "Atlantic salmon seared in sweet garlic soy glaze.", sweet: "Chocolate Decadence Slice" },
+        sides: ["Loaded Garlic Mashed Potatoes", "Cajun Cream Corn", "Dirty Rice", "Green Beans"] },
+      // 8: Sun
+      { date: 8, day: "Sun", palate: "The Sunday Table", 
+        breakfast: { title: "Sunday Table Grits & Biscuit", price: 12, desc: "Gouda grits with smoked sausage and biscuit." },
+        lunch: { title: "Smothered Turkey Wing Bowl", price: 15, desc: "Slow-baked turkey wing over cornbread dressing.", sweet: "Brownie Bite" },
+        dinner: { title: "Dirt Road Oxtails over Seasoned Rice", price: 28, desc: "Fall-off-the-bone braised oxtails.", sweet: "Peach Cobbler Parfait Cup" },
+        sides: ["Collard Greens", "Candied Yams", "Five-Cheese Baked Mac", "Black-Eyed Peas"] },
+      // 9: Mon
+      { date: 9, day: "Mon", palate: "West African Diaspora", 
+        breakfast: { title: "Spiced Plantain & Egg Bowl", price: 11, desc: "Sweet fried plantains with seasoned eggs." },
+        lunch: { title: "Suya Beef Rice Bowl", price: 15, desc: "Peanut-rubbed beef cuts over seasoned rice.", sweet: "Loaded Brownie Bite" },
+        dinner: { title: "West African Peanut Stew with Fufu", price: 22, desc: "Hearty groundnut stew with pounded Fufu swallow.", sweet: "Spiced Caramel Pecan Bite" },
+        sides: ["Pounded Fufu", "Candied Yams", "Five-Cheese Baked Mac", "Collard Greens"] },
+      // 10: Tue
+      { date: 10, day: "Tue", palate: "Island Spice (Caribbean)", 
+        breakfast: { title: "Island Egg & Plantain Wrap", price: 11, desc: "Warm flatbread with spiced scramble and plantains." },
+        lunch: { title: "Brown Stew Chicken Bowl", price: 14, desc: "Caramelized braised chicken over rice and peas.", sweet: "Pineapple Glazed Cookie" },
+        dinner: { title: "Authentic Jamaican Jerk Chicken", price: 21, desc: "Smoked bone-in jerk chicken with authentic jerk spice.", sweet: "Strawberry Crunch Cup" },
+        sides: ["Coconut Rice & Peas", "Southern Cabbage", "Smoked Gouda Grits"] },
+      // 11: Wed
+      { date: 11, day: "Wed", palate: "The People's Table (Member Voted)", isVoted: true,
+        breakfast: { title: "Loaded Soul Grits Bowl", price: 11, desc: "Gouda grits, bacon, cheddar, green onion." },
+        lunch: { title: "Member Special Lunch Plate", price: 13, desc: "Midweek winner: Pulled pork bowl.", sweet: "Signature Cookie Bite" },
+        dinner: { title: "Garlic Butter Steak Bites", price: 22, desc: "Community Winner: Seared tender steak bites in herb butter.", sweet: "Red Velvet Cake Slice" },
+        sides: ["Loaded Garlic Mashed Potatoes", "Five-Cheese Baked Mac", "Green Beans"] },
+      // 12: Thu
+      { date: 12, day: "Thu", palate: "Golden Curry Heritage", 
+        breakfast: { title: "Curry Scramble & Gouda Grits", price: 11, desc: "Turmeric spiced scramble with grits." },
+        lunch: { title: "Coconut Chicken Curry Bowl", price: 15, desc: "Chicken curry over seasoned rice.", sweet: "Lemon Velvet Bite" },
+        dinner: { title: "Slow-Braised Chicken Curry", price: 22, desc: "Tender curry chicken with root vegetables.", sweet: "Lemon Velvet Cake Slice" },
+        sides: ["Seasoned Jasmine Rice", "Southern Cabbage", "Five-Cheese Baked Mac"] },
+      // 13: Fri
+      { date: 13, day: "Fri", palate: "Coastal & Creole", 
+        breakfast: { title: "Crispy Fish & Gouda Grits", price: 13, desc: "Crispy fillet with hot smoked gouda grits." },
+        lunch: { title: "Crispy Fish Po' Boy", price: 15, desc: "French bread po' boy with Creole remoulade.", sweet: "Confections Dipped Oreo" },
+        dinner: { title: "Blackened Grouper & Cajun Cream", price: 28, desc: "Grouper over seasoned rice with cajun cream sauce.", sweet: "Signature Banana Pudding Cup" },
+        sides: ["Seasoned Rice", "Collard Greens", "Five-Cheese Baked Mac", "Dirty Rice"] },
+      // 14: Sat
+      { date: 14, day: "Sat", palate: "Sweet Heat Coastal", 
+        breakfast: { title: "Chicken & Sweet Potato Waffles", price: 13, desc: "Hot honey chicken with cinnamon waffles." },
+        lunch: { title: "Crispy Hot Honey Chicken Bowl", price: 14, desc: "Hot honey tenders over mac.", sweet: "Gourmet Cookie" },
+        dinner: { title: "Pan-Seared Honey Garlic Salmon", price: 25, desc: "Pan-seared salmon with sticky garlic honey reduction.", sweet: "Chocolate Decadence Slice" },
+        sides: ["Loaded Garlic Mashed Potatoes", "Cajun Cream Corn", "Dirty Rice"] },
+      // 15: Sun
+      { date: 15, day: "Sun", palate: "The Sunday Table", 
+        breakfast: { title: "Sunday Table Grits & Biscuit", price: 12, desc: "Gouda grits, sausage, and biscuit." },
+        lunch: { title: "Sunday Braised Beef Bowl", price: 16, desc: "Tender pot roast cuts over rice.", sweet: "Cinnamon Roll Bite" },
+        dinner: { title: "Dirt Road Oxtails over Seasoned Rice", price: 28, desc: "Rich slow-cooked oxtails.", sweet: "Peach Cobbler Parfait Cup" },
+        sides: ["Collard Greens", "Candied Yams", "Five-Cheese Baked Mac", "Black-Eyed Peas"] },
+      // 16: Mon
+      { date: 16, day: "Mon", palate: "West African Diaspora", 
+        breakfast: { title: "Spiced Plantain & Egg Hash", price: 11, desc: "Sweet plantains and seasoned eggs." },
+        lunch: { title: "Suya Chicken Rice Bowl", price: 14, desc: "Peanut-spiced grilled chicken.", sweet: "Loaded Brownie Bite" },
+        dinner: { title: "West African Peanut Stew with Fufu", price: 22, desc: "Traditional groundnut stew with Fufu.", sweet: "Spiced Caramel Pecan Bite" },
+        sides: ["Pounded Fufu", "Candied Yams", "Five-Cheese Baked Mac", "Collard Greens"] },
+      // 17: Tue
+      { date: 17, day: "Tue", palate: "Island Spice (Caribbean)", 
+        breakfast: { title: "Island Egg & Plantain Wrap", price: 11, desc: "Flatbread with egg and plantains." },
+        lunch: { title: "Jerk Chicken Sliders", price: 14, desc: "Jerk chicken with mango slaw.", sweet: "Pineapple Cookie" },
+        dinner: { title: "Authentic Jamaican Jerk Chicken", price: 21, desc: "Jerk chicken with rice and peas.", sweet: "Strawberry Crunch Cup" },
+        sides: ["Coconut Rice & Peas", "Southern Cabbage", "Smoked Gouda Grits"] },
+      // 18: Wed
+      { date: 18, day: "Wed", palate: "The People's Table (Member Voted)", isVoted: true,
+        breakfast: { title: "Loaded Soul Grits Bowl", price: 11, desc: "Gouda grits with cheddar and bacon." },
+        lunch: { title: "Member Special Lunch Plate", price: 13, desc: "Midweek winner: Roasted chicken bowl.", sweet: "Signature Cookie Bite" },
+        dinner: { title: "Bourbon Peach Glazed Chicken", price: 20, desc: "Community Winner: Glazed chicken with peach reduction.", sweet: "Red Velvet Cake Slice" },
+        sides: ["Five-Cheese Baked Mac", "Candied Yams", "Southern Cabbage"] },
+      // 19: Thu
+      { date: 19, day: "Thu", palate: "Golden Curry Heritage", 
+        breakfast: { title: "Curry Scramble & Gouda Grits", price: 11, desc: "Turmeric spiced egg scramble." },
+        lunch: { title: "Coconut Chicken Curry Bowl", price: 15, desc: "Chicken curry over jasmine rice.", sweet: "Lemon Velvet Bite" },
+        dinner: { title: "Slow-Braised Chicken Curry", price: 22, desc: "Savory curry chicken with vegetables.", sweet: "Lemon Velvet Cake Slice" },
+        sides: ["Seasoned Jasmine Rice", "Southern Cabbage", "Five-Cheese Baked Mac"] },
+      // 20: Fri
+      { date: 20, day: "Fri", palate: "Coastal & Creole", 
+        breakfast: { title: "Crispy Fish & Gouda Grits", price: 13, desc: "Fried fish fillet with gouda grits." },
+        lunch: { title: "Crispy Fish Po' Boy", price: 15, desc: "Fish on French bread with remoulade.", sweet: "Confections Dipped Oreo" },
+        dinner: { title: "Southern Fried Fish Platter", price: 21, desc: "Crispy Swai with homemade tartar.", sweet: "Signature Banana Pudding Cup" },
+        sides: ["Seasoned Rice", "Collard Greens", "Five-Cheese Baked Mac", "Dirty Rice"] },
+      // 21: Sat
+      { date: 21, day: "Sat", palate: "Sweet Heat Coastal", 
+        breakfast: { title: "Chicken & Sweet Potato Waffles", price: 13, desc: "Chicken tenders with cinnamon waffles." },
+        lunch: { title: "Hot Honey Chicken Tenders Bowl", price: 14, desc: "Hot honey tenders over baked mac.", sweet: "Gourmet Cookie" },
+        dinner: { title: "Pan-Seared Honey Garlic Salmon", price: 25, desc: "Atlantic salmon in sweet garlic glaze.", sweet: "Chocolate Decadence Slice" },
+        sides: ["Loaded Garlic Mashed Potatoes", "Cajun Cream Corn", "Dirty Rice"] },
+      // 22: Sun
+      { date: 22, day: "Sun", palate: "The Sunday Table", 
+        breakfast: { title: "Sunday Table Grits & Biscuit", price: 12, desc: "Gouda grits, sausage, and biscuit." },
+        lunch: { title: "Sunday Pot Roast Bowl", price: 16, desc: "Braised beef over seasoned rice.", sweet: "Cinnamon Roll Bite" },
+        dinner: { title: "Dirt Road Oxtails over Seasoned Rice", price: 28, desc: "Slow-simmered oxtails in pot gravy.", sweet: "Peach Cobbler Parfait Cup" },
+        sides: ["Collard Greens", "Candied Yams", "Five-Cheese Baked Mac", "Black-Eyed Peas"] },
+      // 23: Mon
+      { date: 23, day: "Mon", palate: "West African Diaspora", 
+        breakfast: { title: "Spiced Plantain & Egg Hash", price: 11, desc: "Fried sweet plantains with eggs." },
+        lunch: { title: "Suya Spiced Chicken Bowl", price: 14, desc: "Peanut-spiced chicken over rice.", sweet: "Loaded Brownie Bite" },
+        dinner: { title: "West African Peanut Stew with Fufu", price: 22, desc: "Savory peanut stew with pounded Fufu.", sweet: "Spiced Caramel Pecan Bite" },
+        sides: ["Pounded Fufu", "Candied Yams", "Five-Cheese Baked Mac", "Collard Greens"] },
+      // 24: Tue
+      { date: 24, day: "Tue", palate: "Island Spice (Caribbean)", 
+        breakfast: { title: "Island Egg & Plantain Wrap", price: 11, desc: "Flatbread with egg and plantains." },
+        lunch: { title: "Jerk Chicken Sliders", price: 14, desc: "Jerk chicken with mango slaw.", sweet: "Pineapple Cookie" },
+        dinner: { title: "Authentic Jamaican Jerk Chicken", price: 21, desc: "Bone-in jerk chicken with rice and peas.", sweet: "Strawberry Crunch Cup" },
+        sides: ["Coconut Rice & Peas", "Southern Cabbage", "Smoked Gouda Grits"] },
+      // 25: Wed
+      { date: 25, day: "Wed", palate: "The People's Table (Holiday Special)", isVoted: true,
+        breakfast: { title: "Loaded Soul Grits Bowl", price: 11, desc: "Gouda grits, bacon, and cheddar." },
+        lunch: { title: "Pre-Holiday Feast Lunch", price: 14, desc: "Smothered turkey wings over dressing.", sweet: "Signature Cookie Bite" },
+        dinner: { title: "Smothered Turkey Wings over Dressing", price: 21, desc: "Community Winner: Smothered turkey wings with cornbread dressing.", sweet: "Red Velvet Cake Slice" },
+        sides: ["Cornbread Dressing", "Candied Yams", "Collard Greens", "Five-Cheese Baked Mac"] },
+      // 26: Thu (Thanksgiving)
+      { date: 26, day: "Thu", palate: "Holiday Feast Celebration", 
+        breakfast: { title: "Holiday French Toast Sticks", price: 12, desc: "Bourbon maple glazed french toast sticks." },
+        lunch: { title: "Turkey & Dressing Bowl", price: 16, desc: "Slow-roasted turkey over dressing.", sweet: "Pumpkin Cheesecake Cup" },
+        dinner: { title: "Dirt Road Holiday Feast Platter", price: 28, desc: "Slow-roasted turkey, baked ham, and house gravy.", sweet: "Sweet Potato Cheesecake Slice" },
+        sides: ["Cornbread Dressing", "Candied Yams", "Five-Cheese Baked Mac", "Collard Greens"] },
+      // 27: Fri
+      { date: 27, day: "Fri", palate: "Coastal & Creole", 
+        breakfast: { title: "Crispy Fish & Gouda Grits", price: 13, desc: "Fried fish fillet with gouda grits." },
+        lunch: { title: "Crispy Fish Po' Boy", price: 15, desc: "Fish fillet on French bread.", sweet: "Confections Dipped Oreo" },
+        dinner: { title: "Southern Fried Fish Platter", price: 21, desc: "Crispy Swai with house tartar.", sweet: "Signature Banana Pudding Cup" },
+        sides: ["Seasoned Rice", "Collard Greens", "Five-Cheese Baked Mac", "Dirty Rice"] },
+      // 28: Sat
+      { date: 28, day: "Sat", palate: "Sweet Heat Coastal", 
+        breakfast: { title: "Chicken & Sweet Potato Waffles", price: 13, desc: "Hot honey tenders with waffles." },
+        lunch: { title: "Hot Honey Chicken Tenders Bowl", price: 14, desc: "Tenders over mac.", sweet: "Gourmet Cookie" },
+        dinner: { title: "Pan-Seared Honey Garlic Salmon", price: 25, desc: "Salmon in honey garlic glaze.", sweet: "Chocolate Decadence Slice" },
+        sides: ["Loaded Garlic Mashed Potatoes", "Cajun Cream Corn", "Dirty Rice"] },
+      // 29: Sun
+      { date: 29, day: "Sun", palate: "The Sunday Table", 
+        breakfast: { title: "Sunday Table Grits & Biscuit", price: 12, desc: "Gouda grits, sausage, and biscuit." },
+        lunch: { title: "Sunday Family Chicken Platter", price: 16, desc: "Crispy chicken with honey roll.", sweet: "Cinnamon Roll Bite" },
+        dinner: { title: "Dirt Road Oxtails over Seasoned Rice", price: 28, desc: "Oxtails simmered in rich gravy.", sweet: "Peach Cobbler Parfait Cup" },
+        sides: ["Collard Greens", "Candied Yams", "Five-Cheese Baked Mac", "Black-Eyed Peas"] },
+      // 30: Mon
+      { date: 30, day: "Mon", palate: "West African Diaspora", 
+        breakfast: { title: "Spiced Plantain & Egg Hash", price: 11, desc: "Sweet plantains and scrambled eggs." },
+        lunch: { title: "Suya Spiced Chicken Bowl", price: 14, desc: "Peanut-spiced grilled chicken.", sweet: "Loaded Brownie Bite" },
+        dinner: { title: "West African Peanut Stew with Fufu", price: 22, desc: "Peanut stew with traditional pounded Fufu.", sweet: "Spiced Caramel Pecan Bite" },
+        sides: ["Pounded Fufu", "Candied Yams", "Five-Cheese Baked Mac", "Collard Greens"] }
+    ];
 
-    // Gateway Entrance
-    document.querySelectorAll('[data-enter]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const target = e.currentTarget.dataset.enter;
-        gateway.hidden = true;
-        store.hidden = false;
-        topBar.hidden = false;
-        bottomNav.hidden = false;
-        showStore(target);
-      });
+    // House Catalog for Permanent Items
+    const houseCatalog = {
+      'dirt-chicken': { name: 'Dirt Road Chicken Plate', basePrice: 21, sides: ["Collard Greens", "Candied Yams", "Five-Cheese Baked Mac", "Seasoned Rice"] },
+      'bourbon-chicken': { name: 'Brown Butter Bourbon Chicken', basePrice: 21, sides: ["Five-Cheese Baked Mac", "Candied Yams", "Southern Cabbage", "Green Beans"] },
+      'african-stew': { name: 'West African Peanut Stew & Fufu', basePrice: 22, sides: ["Pounded Fufu", "Candied Yams", "Collard Greens", "Five-Cheese Baked Mac"] },
+      'salmon': { name: 'Honey Garlic Glazed Salmon', basePrice: 25, sides: ["Loaded Garlic Mashed Potatoes", "Cajun Cream Corn", "Dirty Rice", "Green Beans"] },
+      'oxtails': { name: 'Dirt Road Oxtails over Rice', basePrice: 28, sides: ["Collard Greens", "Candied Yams", "Five-Cheese Baked Mac", "Black-Eyed Peas"] }
+    };
+
+    // State Variables
+    let store = 'soul';
+    let currentDayIndex = 2; // Nov 3, 2026 (Tuesday)
+    let selectedDayIndex = 2;
+    let isPreorderTomorrow = false;
+    let activeTier = 'regular';
+    let currentMealData = null;
+    const cart = new Map();
+    const favorites = new Set();
+
+    function notify(msg) {
+      const t = $('toast');
+      t.textContent = msg;
+      t.hidden = false;
+      clearTimeout(notify.timer);
+      notify.timer = setTimeout(() => t.hidden = true, 3500);
+    }
+
+    // Switch Storefronts
+    function showStore(next) {
+      store = next;
+      document.body.classList.toggle('sweets', next === 'sweets');
+      $('gateway').hidden = true;
+      ['top', 'store', 'bottom-nav'].forEach(id => $(id).hidden = false);
+      showView(next + '-view');
+      $('switch-soul').setAttribute('aria-pressed', String(next === 'soul'));
+      $('switch-sweets').setAttribute('aria-pressed', String(next === 'sweets'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showView(id) {
+      ['soul-view', 'sweets-view', 'account-view', 'favorites-view'].forEach(k => $(k).hidden = k !== id);
+    }
+
+    document.querySelectorAll('[data-enter]').forEach(b => b.onclick = () => showStore(b.dataset.enter));
+    $('shop-both').onclick = () => showStore('soul');
+    $('switch-soul').onclick = () => showStore('soul');
+    $('switch-sweets').onclick = () => showStore('sweets');
+
+    document.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => {
+      const a = b.dataset.nav;
+      if (a === 'cart') { openSheet('cart-sheet'); renderCart(); return; }
+      if (a === 'favorites') { showView('favorites-view'); renderFavorites(); }
+      else if (a === 'account') { showView('account-view'); }
+      else {
+        showView(store + '-view');
+        if (a === 'browse') $('nov-calendar-rail').scrollIntoView({ behavior: 'smooth' });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
 
-    // Top Switcher Logic
-    switchSoul.addEventListener('click', () => showStore('soul'));
-    switchSweets.addEventListener('click', () => showStore('sweets'));
+    $('top-cart').onclick = () => { renderCart(); openSheet('cart-sheet'); };
 
-    function showStore(target) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      if (target === 'soul') {
-        document.body.classList.remove('sweets');
-        viewSweets.hidden = true;
-        viewSoul.hidden = false;
-        
-        switchSoul.setAttribute('aria-pressed', 'true');
-        switchSweets.setAttribute('aria-pressed', 'false');
-        
-        // Update Bottom Nav for Soul Kitchen
-        navExplore.innerHTML = '<i data-lucide="menu"></i>Menu';
-        navAction.innerHTML = '<i data-lucide="utensils"></i>Catering';
-        
-      } else {
-        document.body.classList.add('sweets');
-        viewSoul.hidden = true;
-        viewSweets.hidden = false;
-        
-        switchSoul.setAttribute('aria-pressed', 'false');
-        switchSweets.setAttribute('aria-pressed', 'true');
-        
-        // Update Bottom Nav for Confections
-        navExplore.innerHTML = '<i data-lucide="gem"></i>Shop';
-        navAction.innerHTML = '<i data-lucide="sparkles"></i>Bespoke';
-      }
-      
-      // Re-initialize icons after changing HTML
-      lucide.createIcons();
+    // Sheet Handling
+    function openSheet(id) {
+      $(id).hidden = false;
+      $('backdrop').hidden = false;
+      document.body.style.overflow = 'hidden';
     }
+
+    function closeSheet() {
+      ['plate-sheet', 'cart-sheet'].forEach(id => $(id).hidden = true);
+      $('backdrop').hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    $('backdrop').onclick = closeSheet;
+    document.querySelectorAll('[data-close]').forEach(b => b.onclick = closeSheet);
+
+    // ==========================================
+    // CALENDAR & ROSTER RENDERING
+    // ==========================================
+    function renderNovemberCalendar() {
+      const rail = $('nov-calendar-rail');
+      rail.innerHTML = '';
+      novemberRoster.forEach((item, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `day-pill ${idx === selectedDayIndex ? 'active' : ''}`;
+        btn.innerHTML = `
+          <span class="block text-[10px] uppercase font-bold tracking-wider">${item.day}</span>
+          <span class="block text-lg font-bold">${item.date}</span>
+          <span class="block text-[9px] mt-0.5 opacity-80">${item.palate.split(' ')[0]}</span>
+        `;
+        btn.onclick = () => {
+          selectedDayIndex = idx;
+          isPreorderTomorrow = (idx === currentDayIndex + 1);
+          updateSelectedDayView();
+          renderNovemberCalendar();
+        };
+        rail.append(btn);
+      });
+    }
+
+    function updateSelectedDayView() {
+      const day = novemberRoster[selectedDayIndex];
+      const isTomorrow = (selectedDayIndex === currentDayIndex + 1);
+      
+      // Update Hero Section
+      $('hero-badge').textContent = isTomorrow ? "TOMORROW'S PRE-ORDER" : `NOVEMBER ${day.date} · ${day.day.toUpperCase()}`;
+      $('hero-status').textContent = isTomorrow ? "EARLY BIRD (-$2 OFF)" : "LIVE SERVICE ACTIVE";
+      $('hero-dish-name').textContent = day.dinner.title;
+      $('hero-dish-desc').textContent = `${day.palate} Feature. Includes sides + cornbread + ${day.dinner.sweet}.`;
+      $('order-hero-btn').onclick = () => openPlateBuilderFromDay('dinner');
+
+      // Update Service Cards
+      $('service-section-title').textContent = `${day.palate} (${day.day}, Nov ${day.date})`;
+      
+      $('b-title').textContent = day.breakfast.title;
+      $('b-desc').textContent = day.breakfast.desc;
+      $('b-price').textContent = money(day.breakfast.price);
+      $('b-order-btn').onclick = () => addDirectBreakfast(day.breakfast.title, day.breakfast.price);
+
+      $('l-title').textContent = day.lunch.title;
+      $('l-desc').textContent = day.lunch.desc;
+      $('l-sweet').textContent = `+ Includes ${day.lunch.sweet}`;
+      $('l-price').textContent = money(isTomorrow ? day.lunch.price - 2 : day.lunch.price);
+      $('l-order-btn').onclick = () => openPlateBuilderFromDay('lunch');
+
+      $('d-title').textContent = day.dinner.title;
+      $('d-desc').textContent = day.dinner.desc;
+      $('d-sweet').textContent = `+ Includes ${day.dinner.sweet}`;
+      $('d-price').textContent = money(isTomorrow ? day.dinner.price - 2 : day.dinner.price);
+      $('d-order-btn').onclick = () => openPlateBuilderFromDay('dinner');
+
+      // Update Tabs
+      $('tab-today').setAttribute('aria-pressed', String(!isTomorrow));
+      $('tab-tomorrow').setAttribute('aria-pressed', String(isTomorrow));
+    }
+
+    $('tab-today').onclick = () => {
+      selectedDayIndex = currentDayIndex;
+      isPreorderTomorrow = false;
+      updateSelectedDayView();
+      renderNovemberCalendar();
+    };
+
+    $('tab-tomorrow').onclick = () => {
+      selectedDayIndex = currentDayIndex + 1;
+      isPreorderTomorrow = true;
+      updateSelectedDayView();
+      renderNovemberCalendar();
+    };
+
+    // ==========================================
+    // WEDNESDAY MEMBER VOTING LOGIC
+    // ==========================================
+    const votes = [44, 36, 20];
+    $('cast-vote-btn').onclick = () => {
+      const checked = document.querySelector('input[name="wed-vote"]:checked');
+      if (!checked) {
+        notify('Please select a dish to cast your vote!');
+        return;
+      }
+      const val = parseInt(checked.value, 10);
+      votes[val]++;
+      const total = votes.reduce((a, b) => a + b, 0);
+      
+      [0, 1, 2].forEach(i => {
+        const pct = Math.round((votes[i] / total) * 100);
+        $(`vote-pct-${i}`).textContent = `${pct}%`;
+        $(`vote-bar-${i}`).style.width = `${pct}%`;
+      });
+      $('vote-status').textContent = '✓ Your vote was recorded!';
+      notify('Vote recorded! Winning plate revealed Tuesday.');
+      $('cast-vote-btn').disabled = true;
+    };
+
+    // ==========================================
+    // PLATE BUILDER ENGINE (Tiers + Sides + Sweets)
+    // ==========================================
+    window.openPlateBuilderFromDay = function(type) {
+      const day = novemberRoster[selectedDayIndex];
+      const meal = (type === 'lunch') ? day.lunch : day.dinner;
+      
+      currentMealData = {
+        name: meal.title,
+        basePrice: meal.price,
+        sides: day.sides,
+        sweet: meal.sweet,
+        isPreorder: isPreorderTomorrow
+      };
+      
+      setupPlateModal();
+    };
+
+    window.openPlateBuilder = function(key) {
+      const p = houseCatalog[key];
+      currentMealData = {
+        name: p.name,
+        basePrice: p.basePrice,
+        sides: p.sides,
+        sweet: "Signature Banana Pudding Cup",
+        isPreorder: isPreorderTomorrow
+      };
+      setupPlateModal();
+    };
+
+    function setupPlateModal() {
+      $('pb-title').textContent = currentMealData.name;
+      $('pb-discount-banner').hidden = !currentMealData.isPreorder;
+      activeTier = 'regular';
+      
+      // Update tier buttons
+      document.querySelectorAll('#tier-selector button').forEach(b => {
+        b.setAttribute('aria-pressed', String(b.dataset.tier === activeTier));
+      });
+
+      renderTierPrices();
+      renderSidesSelection();
+      renderSweetsSelection();
+      updatePlateSummary();
+      openSheet('plate-sheet');
+    }
+
+    function renderTierPrices() {
+      const discount = currentMealData.isPreorder ? 2 : 0;
+      $('tier-price-kids').textContent = money(currentMealData.basePrice - 10 - discount);
+      $('tier-price-regular').textContent = money(currentMealData.basePrice - discount);
+      $('tier-price-large').textContent = money(currentMealData.basePrice + 5 - discount);
+    }
+
+    document.querySelectorAll('#tier-selector button').forEach(b => {
+      b.onclick = () => {
+        activeTier = b.dataset.tier;
+        document.querySelectorAll('#tier-selector button').forEach(x => {
+          x.setAttribute('aria-pressed', String(x === b));
+        });
+        renderSidesSelection();
+        renderSweetsSelection();
+        updatePlateSummary();
+      };
+    });
+
+    function getMaxSides() {
+      return activeTier === 'kids' ? 1 : activeTier === 'regular' ? 2 : 3;
+    }
+
+    function renderSidesSelection() {
+      const max = getMaxSides();
+      $('sides-legend').textContent = `2. Select Sides (Choose exactly ${max})`;
+      $('sides-count-status').textContent = `0/${max}`;
+
+      const box = $('sides-container');
+      box.innerHTML = '';
+      currentMealData.sides.forEach(side => {
+        const line = document.createElement('label');
+        line.className = 'option !mt-1 cursor-pointer';
+        line.innerHTML = `
+          <input type="checkbox" name="plate-side" value="${side}">
+          <span class="text-sm font-medium flex-1">${side}</span>
+        `;
+        box.append(line);
+      });
+
+      document.querySelectorAll('input[name="plate-side"]').forEach(cb => {
+        cb.onchange = () => {
+          const checked = document.querySelectorAll('input[name="plate-side"]:checked');
+          if (checked.length > max) {
+            cb.checked = false;
+          }
+          const nowChecked = document.querySelectorAll('input[name="plate-side"]:checked').length;
+          $('sides-count-status').textContent = `${nowChecked}/${max}`;
+        };
+      });
+    }
+
+    function renderSweetsSelection() {
+      const container = $('sweets-container');
+      container.innerHTML = '';
+      
+      const defaultSweet = activeTier === 'kids' 
+        ? "Mini Dipped Oreo / Cookie Bite" 
+        : activeTier === 'large' 
+        ? "Confections Classic Cake Slice" 
+        : currentMealData.sweet;
+
+      const opts = [
+        { name: `${defaultSweet} (Included with Plate)`, price: 0, checked: true },
+        { name: "Upgrade to Signature Strawberry Crunch (+ $2.00)", price: 2, checked: false },
+        { name: "Upgrade to Full Designer Red Velvet Slice (+ $3.00)", price: 3, checked: false }
+      ];
+
+      opts.forEach((opt, idx) => {
+        const line = document.createElement('label');
+        line.className = 'option !mt-1 cursor-pointer';
+        line.innerHTML = `
+          <input type="radio" name="plate-sweet" value="${opt.name}" data-price="${opt.price}" ${opt.checked ? 'checked' : ''}>
+          <span class="text-sm font-medium flex-1">${opt.name}</span>
+        `;
+        line.querySelector('input').onchange = updatePlateSummary;
+        container.append(line);
+      });
+    }
+
+    function calculatePlateTotal() {
+      let base = currentMealData.basePrice;
+      if (activeTier === 'kids') base -= 10;
+      if (activeTier === 'large') base += 5;
+      if (currentMealData.isPreorder) base -= 2;
+
+      const sweetEl = document.querySelector('input[name="plate-sweet"]:checked');
+      const sweetUpgrade = sweetEl ? Number(sweetEl.dataset.price) : 0;
+      return base + sweetUpgrade;
+    }
+
+    function updatePlateSummary() {
+      $('pb-final-price').textContent = money(calculatePlateTotal());
+    }
+
+    $('pb-add-btn').onclick = () => {
+      const max = getMaxSides();
+      const selectedSides = [...document.querySelectorAll('input[name="plate-side"]:checked')].map(c => c.value);
+      if (selectedSides.length !== max) {
+        notify(`Please select exactly ${max} side(s) for your plate!`);
+        return;
+      }
+
+      const sweet = document.querySelector('input[name="plate-sweet"]:checked').value.split(' (+')[0];
+      const notes = $('plate-notes').value.trim();
+      const price = calculatePlateTotal();
+      const tierName = activeTier === 'kids' ? "Lil' Road Plate" : activeTier === 'large' ? "Large Plate" : "Regular Plate";
+
+      const key = `${currentMealData.name}-${tierName}-${selectedSides.join(',')}-${sweet}-${notes}`;
+      
+      cart.set(key, {
+        store: 'soul',
+        name: `${currentMealData.name} (${tierName})`,
+        price: price,
+        quantity: 1,
+        details: [
+          `Sides: ${selectedSides.join(', ')}`,
+          `Sweet Finish: ${sweet}`,
+          currentMealData.isPreorder ? "⚡ Early Pre-order Discount Applied (-$2.00)" : "Live Service Order",
+          notes ? `Note: ${notes}` : ""
+        ].filter(Boolean).join(' · ')
+      });
+
+      renderCart();
+      closeSheet();
+      notify('Complete meal added to cart!');
+    };
+
+    // Fast Add Helpers
+    window.addDirectBreakfast = function(title, price) {
+      cart.set(`b-${title}`, {
+        store: 'soul',
+        name: title,
+        price: price,
+        quantity: 1,
+        details: "Breakfast Service Drop"
+      });
+      renderCart();
+      notify('Breakfast added to cart');
+    };
+
+    window.addDirectConfection = function(title, price) {
+      cart.set(`c-${title}`, {
+        store: 'sweets',
+        name: title,
+        price: price,
+        quantity: 1,
+        details: "Daily Bakery Drop"
+      });
+      renderCart();
+      notify('Confection added to cart');
+    };
+
+    // Render Cart
+    function renderCart() {
+      const holder = $('cart-rows');
+      holder.innerHTML = '';
+      let count = 0, total = 0;
+
+      for (const [key, item] of cart) {
+        count += item.quantity;
+        total += item.quantity * item.price;
+        const row = document.createElement('div');
+        row.className = 'line-item';
+        const color = item.store === 'soul' ? 'var(--gold)' : 'var(--accent)';
+        row.innerHTML = `
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] font-bold tracking-wider uppercase" style="color:${color}">${item.store === 'soul' ? 'SOUL KITCHEN' : 'CONFECTIONS'}</span>
+              <p class="font-semibold text-base mt-0.5">${item.name}</p>
+              <p class="fine text-xs mt-1 text-[var(--muted)]">${item.details}</p>
+            </div>
+            <strong class="font-medium text-base ml-4">${money(item.price * item.quantity)}</strong>
+          </div>
+          <div class="flex items-center gap-2 mt-3">
+            <button type="button" class="outline px-2.5 py-1 text-xs" onclick="updateCartQty('${key}', -1)">−</button>
+            <span class="text-xs font-bold px-2">${item.quantity}</span>
+            <button type="button" class="outline px-2.5 py-1 text-xs" onclick="updateCartQty('${key}', 1)">+</button>
+            <button type="button" class="outline ml-auto text-xs py-1" onclick="removeCartItem('${key}')">Remove</button>
+          </div>
+        `;
+        holder.append(row);
+      }
+      $('cart-count').textContent = count;
+      $('cart-subtotal').textContent = money(total);
+      $('cart-empty').hidden = count > 0;
+    }
+
+    window.updateCartQty = function(key, delta) {
+      const item = cart.get(key);
+      if (!item) return;
+      item.quantity += delta;
+      if (item.quantity <= 0) cart.delete(key);
+      renderCart();
+    };
+
+    window.removeCartItem = function(key) {
+      cart.delete(key);
+      renderCart();
+    };
+
+    function renderFavorites() {
+      $('favorites-list').textContent = favorites.size 
+        ? [...favorites].join(' · ') 
+        : 'No favorites saved yet. Pin your favorite meals to see them here.';
+    }
+
+    // Initialize App
+    renderNovemberCalendar();
+    updateSelectedDayView();
+    if (window.lucide) lucide.createIcons();
+  })();
   </script>
 </body>
 </html>
