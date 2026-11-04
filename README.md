@@ -1,13 +1,16 @@
-# Dirt Road | Soul Kitchen & Confections
+# Dirt Road | Mobile Web App PWA
+Soul Kitchen Daily Roster & Confections Gifting Studio.
 
-A unified dark luxury culinary studio, confectionery gifting house, and mobile PWA.
-
-## Deployment on Vercel
-1. Push this repository to GitHub.
-2. Import the repository into Vercel.
-3. Framework Preset: **Other** (Static Site).
-4. Root Directory: `./`
-5. Click **Deploy**.
-
-- Public Informational Website: `https://your-domain.vercel.app/`
-- Mobile App PWA: `https://your-domain.vercel.app/app`
+## How to Deploy to GitHub & Vercel
+1. In your local clone of `dirt-road-app` (e.g. `christinavarneyrhynes330/dirt-road-app`):
+   ```bash
+   git add .
+   git commit -m "Update mobile app with dark luxury aesthetic, full menu, and site connection"
+   git push origin main
+   ```
+2. In Vercel:
+   - Click **Add New...** -> **Project**.
+   - Import your `dirt-road-app` repository.
+   - Framework Preset: **Other** (Static Site).
+   - Root directory: `./`
+   - Click **Deploy**.
