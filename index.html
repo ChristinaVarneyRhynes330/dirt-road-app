@@ -7,188 +7,336 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.json">
+  <title>Dirt Road | Two experiences. One road.</title>
   
-  <title>Dirt Road | Two Experiences. One Road.</title>
-  
-  <!-- Brand Fonts from Mood Board -->
+  <!-- Upgraded Brand Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Allura&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+  
   <style>
-    /* Exact colors from Designer.png */
+    /* Upgraded Brand Palette applied to your original architecture */
     :root {
-      --espresso: #241A16;
-      --cream: #F5EFE5;
-      --terracotta: #A85532;
-      --caramel: #BD8255;
-      --sage: #8B927C;
-      --oat: #DDDDBF;
+      --bg: #241A16; /* Deep Espresso */
+      --panel: #31241E; /* Lighter Espresso for cards */
+      --line: #675342;
+      --ink: #F5EFE5; /* Warm Cream */
+      --muted: #DDDDBF; /* Oat */
+      --gold: #BD8255; /* Caramel */
+      --accent: #A85532; /* Terracotta */
     }
-    body {
-      background-color: var(--espresso);
-      color: var(--cream);
-      font-family: 'Montserrat', sans-serif;
-      margin: 0;
-      padding-bottom: 90px; /* Space for bottom nav */
-    }
-    h1, h2, h3, .serif {
-      font-family: 'Playfair Display', serif;
-    }
-    .accent-script {
-      font-family: 'Allura', cursive;
+    /* Confections Alternate Palette */
+    body.sweets {
+      --bg: #1A1113; /* Onyx/Black Cherry mix */
+      --panel: #2A1A1F;
+      --line: #724A52;
+      --accent: #5A2A35; /* Black Cherry */
+      --muted: #E0CBD0;
+      --gold: #C8A96B; /* Champagne Gold */
     }
     
-    /* App Navigation Bar */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: rgba(36, 26, 22, 0.95);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(221, 221, 191, 0.2);
-      display: flex;
-      justify-content: space-around;
-      padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
-      z-index: 50;
-    }
-    .nav-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 0.7rem;
-      color: var(--oat);
-      background: none;
-      border: none;
-    }
-    .nav-btn.active {
-      color: var(--terracotta);
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; width: 100%; background: var(--bg); color: var(--ink); font-family: 'Montserrat', sans-serif; padding-bottom: 100px; }
     
-    /* Buttons */
-    .btn-primary {
-      background-color: var(--terracotta);
-      color: var(--cream);
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-weight: 600;
-      width: 100%;
-    }
-    .confections-mode .btn-primary {
-      background-color: var(--caramel);
-      color: var(--espresso);
-    }
-    .confections-mode .nav-btn.active {
-      color: var(--caramel);
-    }
+    .serif { font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.015em; line-height: 1.15; }
+    .eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+    .muted { color: var(--muted); }
+    .wrap { width: 100%; max-width: 1150px; margin: auto; padding-inline: 20px; }
+    
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    
+    /* Buttons & Interactions */
+    .btn, .outline, .chip, .switch button, .gateway-card { position: relative; overflow: hidden; }
+    .btn:after, .outline:after, .chip:after, .switch button:after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 20%, #fff5 48%, transparent 72%); transform: translateX(-130%); transition: transform 0.55s ease; pointer-events: none; }
+    .btn:hover:after, .outline:hover:after, .chip:hover:after, .switch button:hover:after { transform: translateX(130%); }
+    
+    .btn { border: 0; border-radius: 11px; background: var(--accent); color: white; font-weight: 600; padding: 11px 15px; min-height: 45px; transition: filter 0.2s, transform 0.2s; }
+    .sweets .btn { background: var(--gold); color: #17100f; }
+    .btn:active { transform: scale(0.97); }
+    
+    .outline { border: 1px solid var(--line); background: #ffffff08; color: var(--ink); border-radius: 11px; padding: 10px 13px; min-height: 43px; }
+    .outline[aria-pressed=true], .chip[aria-pressed=true] { background: var(--gold); color: #1a120e; border-color: var(--gold); }
+    .chip { border: 1px solid var(--line); color: var(--ink); background: #ffffff08; padding: 10px 14px; border-radius: 999px; white-space: nowrap; transition: background 0.2s, transform 0.2s; font-size: 0.85rem; font-weight: 500;}
+    
+    /* Layout Elements from Original Code */
+    .top { position: sticky; top: 0; z-index: 20; background: rgba(36, 26, 22, 0.9); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
+    .sweets .top { background: rgba(26, 17, 19, 0.9); }
+    
+    .switch { display: flex; gap: 3px; padding: 4px; background: rgba(0,0,0,0.4); border: 1px solid var(--line); border-radius: 999px; }
+    .switch button { font-size: 0.68rem; letter-spacing: 0.06em; font-weight: 700; padding: 9px 11px; border-radius: 999px; color: var(--muted); }
+    .switch button[aria-pressed=true] { background: var(--gold); color: #1b1410; }
+    
+    .gateway { min-height: 100vh; background: radial-gradient(ellipse at 50% 5%, #6b4328, var(--bg) 48%, #0d0d0d); padding: 55px 0; position: relative; isolation: isolate; }
+    .gateway-card, .card, .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 19px; overflow: hidden; box-shadow: 0 16px 36px #0003; }
+    .gateway-card { display: block; width: 100%; text-align: left; transition: transform 0.25s, border-color 0.25s; }
+    .gateway-card:hover, .card:hover { transform: translateY(-3px); border-color: var(--gold); }
+    .gateway-card img { display: block; width: 100%; height: clamp(180px, 42vw, 250px); object-fit: contain; padding: 14px; background: #171310; }
+    .gateway-card .copy { display: block; padding: 21px; }
+    
+    .hero { min-height: 400px; position: relative; overflow: hidden; border-radius: 23px; background: #241b17; margin-bottom: 2rem;}
+    .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+    .hero:after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #110d0bee, #140e0aaa 60%, transparent); }
+    .hero-copy { position: relative; z-index: 1; max-width: 610px; padding: 38px 27px; }
+    
+    .section { padding-top: 47px; scroll-margin-top: 88px; }
+    .rail { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 17px; scrollbar-width: none; }
+    .rail::-webkit-scrollbar { display: none; }
+    .rail > * { flex: 0 0 min(77vw, 290px); scroll-snap-align: start; }
+    
+    .card img { width: 100%; height: 200px; object-fit: cover; }
+    .card-body { padding: 17px; }
+    .card-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 15px; }
+    
+    .glass { background: linear-gradient(130deg, rgba(49,37,30,0.9), rgba(23,19,16,0.95)); border: 1px solid var(--line); border-radius: 20px; padding: 22px; box-shadow: 0 20px 50px #0005; }
+    .sweets .glass { background: linear-gradient(130deg, rgba(52,33,40,0.9), rgba(23,16,19,0.95)); }
+    
+    /* Navigation */
+    .bottom { position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; background: rgba(36, 26, 22, 0.95); backdrop-filter: blur(16px); border-top: 1px solid var(--line); display: flex; justify-content: space-around; padding: 8px 6px calc(9px + env(safe-area-inset-bottom)); }
+    .sweets .bottom { background: rgba(26, 17, 19, 0.95); }
+    .bottom button { min-width: 55px; min-height: 49px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--muted); font-size: 0.65rem; font-weight: 500;}
+    .bottom svg { width: 20px; height: 20px; }
+    .bottom .order { background: var(--accent); color: white; border-radius: 15px; transform: translateY(-9px); min-height: 60px; font-weight: 700;}
+    .sweets .bottom .order { background: var(--gold); color: #17100f; }
+
+    .bottom button.active { color: var(--accent); }
+    .sweets .bottom button.active { color: var(--gold); }
+    
+    [hidden] { display: none !important; }
   </style>
 </head>
 <body>
-
-  <!-- Top Persistent Switcher -->
-  <header class="sticky top-0 z-40 bg-[#241A16]/90 backdrop-blur-md border-b border-[#DDDDBF]/20 p-4 flex justify-between items-center">
-    <div class="text-sm font-semibold tracking-widest text-[#F5EFE5]" id="brand-header">DIRT ROAD</div>
-    <div class="flex gap-2 bg-black/40 rounded-full p-1 border border-[#DDDDBF]/20" id="switcher">
-      <button id="btn-soul" class="px-3 py-1 rounded-full text-xs font-semibold bg-[#A85532] text-[#F5EFE5]">SOUL KITCHEN</button>
-      <button id="btn-sweets" class="px-3 py-1 rounded-full text-xs font-semibold text-[#DDDDBF]">CONFECTIONS</button>
+  
+  <header id="top" class="top" hidden>
+    <div class="wrap flex items-center justify-between gap-2 py-3">
+      <div class="min-w-0">
+        <span class="serif block text-lg uppercase tracking-widest text-[#F5EFE5]" id="header-brand">DIRT ROAD</span>
+      </div>
+      <div class="switch" role="group" aria-label="Switch storefront">
+        <button id="switch-soul" aria-pressed="true" type="button">SOUL KITCHEN</button>
+        <button id="switch-sweets" aria-pressed="false" type="button">CONFECTIONS</button>
+      </div>
     </div>
   </header>
 
-  <!-- SOUL KITCHEN VIEW -->
-  <main id="view-soul" class="block p-4">
-    <div class="h-64 rounded-2xl bg-cover bg-center mb-6 relative overflow-hidden" style="background-image: url('https://images.pexels.com/photos/60616/pexels-photo-60616.jpeg?auto=compress&cs=tinysrgb&w=800');">
-      <div class="absolute inset-0 bg-gradient-to-t from-[#241A16] to-transparent"></div>
-      <div class="absolute bottom-4 left-4">
-        <h1 class="text-4xl serif text-[#F5EFE5]">Rooted in Flavor.</h1>
-        <p class="accent-script text-3xl text-[#BD8255] mt-1">Made with soul.</p>
-      </div>
-    </div>
-    
-    <h2 class="text-2xl serif mb-4">Signature Plates</h2>
-    <div class="grid grid-cols-2 gap-4">
-      <!-- Item Card -->
-      <div class="bg-black/30 border border-[#DDDDBF]/10 rounded-xl overflow-hidden">
-        <img src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg" class="h-32 w-full object-cover">
-        <div class="p-3">
-          <h3 class="serif text-lg">Bourbon Chicken</h3>
-          <p class="text-xs text-[#DDDDBF] mt-1 mb-3">Brown butter depth with a warm bourbon finish.</p>
-          <button class="btn-primary py-2 text-sm">Add $22</button>
+  <main>
+    <!-- Gateway -->
+    <section id="gateway" class="gateway">
+      <div class="wrap max-w-[900px] text-center">
+        <div class="mx-auto mb-4 w-16 h-16 rounded-full border border-[var(--gold)] grid place-items-center text-[var(--gold)]">
+          <i data-lucide="trees"></i>
+        </div>
+        <p class="eyebrow">ROOTED IN SOMETHING GOOD</p>
+        <h1 class="serif text-[clamp(3rem,10vw,5rem)] mt-3">DIRT ROAD</h1>
+        <p class="mt-3 text-lg">Two companies. Two experiences. One Dirt Road.</p>
+        <h2 class="serif text-3xl mt-10 mb-8">Where will the road take you?</h2>
+        
+        <div class="grid sm:grid-cols-2 gap-6 text-left">
+          <button type="button" data-enter="soul" class="gateway-card">
+            <img src="https://images.pexels.com/photos/60616/pexels-photo-60616.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Soul Kitchen" style="object-fit: cover;">
+            <span class="copy">
+              <span class="serif block text-2xl">Soul Kitchen</span>
+              <span class="text-sm block mt-2 text-[var(--muted)]">Soul food roots. Unexpected plates.</span>
+              <span class="eyebrow block mt-5 text-[var(--accent)]">ENTER THE KITCHEN ↗</span>
+            </span>
+          </button>
+          
+          <button type="button" data-enter="sweets" class="gateway-card">
+            <img src="https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Confections" style="object-fit: cover;">
+            <span class="copy">
+              <span class="serif block text-2xl">Confections</span>
+              <span class="text-sm block mt-2 text-[var(--muted)]">Dessert, design, gifting and celebration.</span>
+              <span class="eyebrow block mt-5 text-[var(--gold)]">ENTER CONFECTIONS ↗</span>
+            </span>
+          </button>
         </div>
       </div>
-    </div>
-  </main>
+    </section>
 
-  <!-- CONFECTIONS VIEW -->
-  <main id="view-sweets" class="hidden p-4">
-    <div class="h-64 rounded-2xl bg-cover bg-center mb-6 relative overflow-hidden" style="background-image: url('https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=800');">
-      <div class="absolute inset-0 bg-gradient-to-t from-[#241A16] to-transparent"></div>
-      <div class="absolute bottom-4 left-4">
-        <h1 class="text-4xl serif text-[#F5EFE5]">Designed to be</h1>
-        <p class="serif italic text-3xl text-[#BD8255] mt-1">Remembered.</p>
+    <!-- App Content -->
+    <div id="store" hidden>
+      <div class="wrap pt-5">
+        
+        <!-- SOUL KITCHEN VIEW -->
+        <section id="soul-view">
+          <div class="hero">
+            <img src="https://images.pexels.com/photos/628776/pexels-photo-628776.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Savory dinner">
+            <div class="hero-copy">
+              <p class="eyebrow text-[var(--accent)]">DIRT ROAD · SOUL KITCHEN</p>
+              <h1 class="serif text-4xl mt-4">Rooted in Flavor.<br><span class="text-[var(--gold)] italic">Made With Soul.</span></h1>
+              <p class="mt-4 text-lg">Familiar flavors. Unexpected plates.</p>
+              <button type="button" class="btn mt-6">ORDER FOR TONIGHT ↗</button>
+            </div>
+          </div>
+          
+          <nav class="rail mt-5">
+            <a href="#" class="chip" aria-pressed="true">SIGNATURES</a>
+            <a href="#" class="chip">FROM THE WATER</a>
+            <a href="#" class="chip">FAMILY MEALS</a>
+            <a href="#" class="chip">THE SIDES</a>
+          </nav>
+
+          <section class="section">
+            <p class="eyebrow">THE ROAD SIGNATURES</p>
+            <h2 class="serif text-3xl mt-2 mb-5">Featured Plates</h2>
+            <div class="rail">
+              <article class="card">
+                <img src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=800">
+                <div class="card-body">
+                  <h3 class="serif text-xl">Brown Butter Bourbon Chicken</h3>
+                  <p class="text-sm mt-2 text-[var(--muted)]">Brown butter depth with a warm bourbon finish.</p>
+                  <div class="card-actions">
+                    <span>$22.00</span>
+                    <button class="btn">Add +</button>
+                  </div>
+                </div>
+              </article>
+              <article class="card">
+                <img src="https://images.pexels.com/photos/675951/pexels-photo-675951.jpeg?auto=compress&cs=tinysrgb&w=800">
+                <div class="card-body">
+                  <h3 class="serif text-xl">Braised Short Rib & Gravy</h3>
+                  <p class="text-sm mt-2 text-[var(--muted)]">Deeply braised comfort with a polished finish.</p>
+                  <div class="card-actions">
+                    <span>$29.00</span>
+                    <button class="btn">Add +</button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+        </section>
+
+        <!-- CONFECTIONS VIEW -->
+        <section id="sweets-view" hidden>
+          <div class="hero">
+            <img src="https://images.pexels.com/photos/264939/pexels-photo-264939.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Celebration cake">
+            <div class="hero-copy">
+              <p class="eyebrow text-[var(--gold)]">DIRT ROAD · CONFECTIONS</p>
+              <h1 class="serif text-4xl mt-4">Designed to Be<br><span class="text-[var(--gold)] italic">Remembered.</span></h1>
+              <p class="mt-4 text-lg">A luxury dessert and gifting studio.</p>
+              <button type="button" class="btn mt-6">INQUIRE NOW ↗</button>
+            </div>
+          </div>
+          
+          <nav class="rail mt-5">
+            <a href="#" class="chip" aria-pressed="true">SIGNATURE EDIT</a>
+            <a href="#" class="chip">BESPOKE CAKES</a>
+            <a href="#" class="chip">GIFT BOXES</a>
+            <a href="#" class="chip">TREAT STUDIO</a>
+          </nav>
+
+          <section class="section">
+            <p class="eyebrow">READY-MADE / THE SLICE</p>
+            <h2 class="serif text-3xl mt-2 mb-5">Signature Edit</h2>
+            <div class="rail">
+              <article class="card">
+                <img src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=800">
+                <div class="card-body">
+                  <h3 class="serif text-xl">Red Velvet Slice</h3>
+                  <p class="text-sm mt-2 text-[var(--muted)]">The signature edit, one beautiful slice at a time.</p>
+                  <div class="card-actions">
+                    <span>$9.00</span>
+                    <button class="btn">Add +</button>
+                  </div>
+                </div>
+              </article>
+              <article class="card">
+                <img src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=800">
+                <div class="card-body">
+                  <h3 class="serif text-xl">Strawberry Crunch Slice</h3>
+                  <p class="text-sm mt-2 text-[var(--muted)]">A playful favorite with an elevated finish.</p>
+                  <div class="card-actions">
+                    <span>$9.00</span>
+                    <button class="btn">Add +</button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+        </section>
+        
       </div>
     </div>
-    
-    <h2 class="text-2xl serif mb-4">The Cake Studio</h2>
-    <div class="bg-black/30 border border-[#DDDDBF]/10 rounded-xl overflow-hidden p-4">
-      <h3 class="serif text-xl">Bespoke Designer Cakes</h3>
-      <p class="text-sm text-[#DDDDBF] mt-2 mb-4">Your design receives an individual quote and consultation. Starts at $175.</p>
-      <button class="btn-primary">Inquire Now</button>
-    </div>
   </main>
 
-  <!-- Dynamic Bottom Nav -->
-  <nav class="bottom-nav">
-    <button class="nav-btn active"><i data-lucide="home" class="mb-1"></i>Home</button>
-    <button class="nav-btn" id="nav-menu"><i data-lucide="menu" class="mb-1"></i>Menu</button>
-    <button class="nav-btn"><i data-lucide="shopping-bag" class="mb-1"></i>Cart</button>
-    <button class="nav-btn"><i data-lucide="user" class="mb-1"></i>Profile</button>
+  <!-- Dynamic Bottom Navigation -->
+  <nav id="bottom-nav" class="bottom" hidden>
+    <button type="button" class="active"><i data-lucide="home"></i>Home</button>
+    <button type="button" id="nav-explore"><i data-lucide="menu"></i>Menu</button>
+    <button type="button" class="order"><i data-lucide="shopping-bag"></i>CART</button>
+    <button type="button" id="nav-action"><i data-lucide="utensils"></i>Catering</button>
+    <button type="button"><i data-lucide="user"></i>Account</button>
   </nav>
 
   <script>
+    // Initialize Icons
     lucide.createIcons();
+
+    // DOM Elements
+    const switchSoul = document.getElementById('switch-soul');
+    const switchSweets = document.getElementById('switch-sweets');
+    const gateway = document.getElementById('gateway');
+    const store = document.getElementById('store');
+    const viewSoul = document.getElementById('soul-view');
+    const viewSweets = document.getElementById('sweets-view');
+    const topBar = document.getElementById('top');
+    const bottomNav = document.getElementById('bottom-nav');
     
-    const btnSoul = document.getElementById('btn-soul');
-    const btnSweets = document.getElementById('btn-sweets');
-    const viewSoul = document.getElementById('view-soul');
-    const viewSweets = document.getElementById('view-sweets');
-    const navMenuBtn = document.getElementById('nav-menu');
+    // Dynamic Nav Elements
+    const navExplore = document.getElementById('nav-explore');
+    const navAction = document.getElementById('nav-action');
 
-    // Switch to Confections
-    btnSweets.addEventListener('click', () => {
-      document.body.classList.add('confections-mode');
-      viewSoul.classList.add('hidden');
-      viewSweets.classList.remove('hidden');
-      
-      // Update Switcher UI
-      btnSweets.classList.add('bg-[#BD8255]', 'text-[#241A16]');
-      btnSweets.classList.remove('text-[#DDDDBF]');
-      btnSoul.classList.remove('bg-[#A85532]', 'text-[#F5EFE5]');
-      btnSoul.classList.add('text-[#DDDDBF]');
-      
-      // Update Bottom Nav Label
-      navMenuBtn.innerHTML = '<i data-lucide="gem" class="mb-1"></i>Shop';
-      lucide.createIcons();
+    // Gateway Entrance
+    document.querySelectorAll('[data-enter]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget.dataset.enter;
+        gateway.hidden = true;
+        store.hidden = false;
+        topBar.hidden = false;
+        bottomNav.hidden = false;
+        showStore(target);
+      });
     });
 
-    // Switch to Soul Kitchen
-    btnSoul.addEventListener('click', () => {
-      document.body.classList.remove('confections-mode');
-      viewSweets.classList.add('hidden');
-      viewSoul.classList.remove('hidden');
+    // Top Switcher Logic
+    switchSoul.addEventListener('click', () => showStore('soul'));
+    switchSweets.addEventListener('click', () => showStore('sweets'));
+
+    function showStore(target) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       
-      // Update Switcher UI
-      btnSoul.classList.add('bg-[#A85532]', 'text-[#F5EFE5]');
-      btnSoul.classList.remove('text-[#DDDDBF]');
-      btnSweets.classList.remove('bg-[#BD8255]', 'text-[#241A16]');
-      btnSweets.classList.add('text-[#DDDDBF]');
+      if (target === 'soul') {
+        document.body.classList.remove('sweets');
+        viewSweets.hidden = true;
+        viewSoul.hidden = false;
+        
+        switchSoul.setAttribute('aria-pressed', 'true');
+        switchSweets.setAttribute('aria-pressed', 'false');
+        
+        // Update Bottom Nav for Soul Kitchen
+        navExplore.innerHTML = '<i data-lucide="menu"></i>Menu';
+        navAction.innerHTML = '<i data-lucide="utensils"></i>Catering';
+        
+      } else {
+        document.body.classList.add('sweets');
+        viewSoul.hidden = true;
+        viewSweets.hidden = false;
+        
+        switchSoul.setAttribute('aria-pressed', 'false');
+        switchSweets.setAttribute('aria-pressed', 'true');
+        
+        // Update Bottom Nav for Confections
+        navExplore.innerHTML = '<i data-lucide="gem"></i>Shop';
+        navAction.innerHTML = '<i data-lucide="sparkles"></i>Bespoke';
+      }
       
-      // Update Bottom Nav Label
-      navMenuBtn.innerHTML = '<i data-lucide="menu" class="mb-1"></i>Menu';
+      // Re-initialize icons after changing HTML
       lucide.createIcons();
-    });
+    }
   </script>
 </body>
 </html>
