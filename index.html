@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#241A16">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  
+  <title>Dirt Road | Two Experiences. One Road.</title>
+  
+  <!-- Brand Fonts from Mood Board -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Allura&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Exact colors from Designer.png */
+    :root {
+      --espresso: #241A16;
+      --cream: #F5EFE5;
+      --terracotta: #A85532;
+      --caramel: #BD8255;
+      --sage: #8B927C;
+      --oat: #DDDDBF;
+    }
+    body {
+      background-color: var(--espresso);
+      color: var(--cream);
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding-bottom: 90px; /* Space for bottom nav */
+    }
+    h1, h2, h3, .serif {
+      font-family: 'Playfair Display', serif;
+    }
+    .accent-script {
+      font-family: 'Allura', cursive;
+    }
+    
+    /* App Navigation Bar */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(36, 26, 22, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(221, 221, 191, 0.2);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
+      z-index: 50;
+    }
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.7rem;
+      color: var(--oat);
+      background: none;
+      border: none;
+    }
+    .nav-btn.active {
+      color: var(--terracotta);
+    }
+    
+    /* Buttons */
+    .btn-primary {
+      background-color: var(--terracotta);
+      color: var(--cream);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      width: 100%;
+    }
+    .confections-mode .btn-primary {
+      background-color: var(--caramel);
+      color: var(--espresso);
+    }
+    .confections-mode .nav-btn.active {
+      color: var(--caramel);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Persistent Switcher -->
+  <header class="sticky top-0 z-40 bg-[#241A16]/90 backdrop-blur-md border-b border-[#DDDDBF]/20 p-4 flex justify-between items-center">
+    <div class="text-sm font-semibold tracking-widest text-[#F5EFE5]" id="brand-header">DIRT ROAD</div>
+    <div class="flex gap-2 bg-black/40 rounded-full p-1 border border-[#DDDDBF]/20" id="switcher">
+      <button id="btn-soul" class="px-3 py-1 rounded-full text-xs font-semibold bg-[#A85532] text-[#F5EFE5]">SOUL KITCHEN</button>
+      <button id="btn-sweets" class="px-3 py-1 rounded-full text-xs font-semibold text-[#DDDDBF]">CONFECTIONS</button>
+    </div>
+  </header>
+
+  <!-- SOUL KITCHEN VIEW -->
+  <main id="view-soul" class="block p-4">
+    <div class="h-64 rounded-2xl bg-cover bg-center mb-6 relative overflow-hidden" style="background-image: url('https://images.pexels.com/photos/60616/pexels-photo-60616.jpeg?auto=compress&cs=tinysrgb&w=800');">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#241A16] to-transparent"></div>
+      <div class="absolute bottom-4 left-4">
+        <h1 class="text-4xl serif text-[#F5EFE5]">Rooted in Flavor.</h1>
+        <p class="accent-script text-3xl text-[#BD8255] mt-1">Made with soul.</p>
+      </div>
+    </div>
+    
+    <h2 class="text-2xl serif mb-4">Signature Plates</h2>
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Item Card -->
+      <div class="bg-black/30 border border-[#DDDDBF]/10 rounded-xl overflow-hidden">
+        <img src="https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg" class="h-32 w-full object-cover">
+        <div class="p-3">
+          <h3 class="serif text-lg">Bourbon Chicken</h3>
+          <p class="text-xs text-[#DDDDBF] mt-1 mb-3">Brown butter depth with a warm bourbon finish.</p>
+          <button class="btn-primary py-2 text-sm">Add $22</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- CONFECTIONS VIEW -->
+  <main id="view-sweets" class="hidden p-4">
+    <div class="h-64 rounded-2xl bg-cover bg-center mb-6 relative overflow-hidden" style="background-image: url('https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=800');">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#241A16] to-transparent"></div>
+      <div class="absolute bottom-4 left-4">
+        <h1 class="text-4xl serif text-[#F5EFE5]">Designed to be</h1>
+        <p class="serif italic text-3xl text-[#BD8255] mt-1">Remembered.</p>
+      </div>
+    </div>
+    
+    <h2 class="text-2xl serif mb-4">The Cake Studio</h2>
+    <div class="bg-black/30 border border-[#DDDDBF]/10 rounded-xl overflow-hidden p-4">
+      <h3 class="serif text-xl">Bespoke Designer Cakes</h3>
+      <p class="text-sm text-[#DDDDBF] mt-2 mb-4">Your design receives an individual quote and consultation. Starts at $175.</p>
+      <button class="btn-primary">Inquire Now</button>
+    </div>
+  </main>
+
+  <!-- Dynamic Bottom Nav -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active"><i data-lucide="home" class="mb-1"></i>Home</button>
+    <button class="nav-btn" id="nav-menu"><i data-lucide="menu" class="mb-1"></i>Menu</button>
+    <button class="nav-btn"><i data-lucide="shopping-bag" class="mb-1"></i>Cart</button>
+    <button class="nav-btn"><i data-lucide="user" class="mb-1"></i>Profile</button>
+  </nav>
+
+  <script>
+    lucide.createIcons();
+    
+    const btnSoul = document.getElementById('btn-soul');
+    const btnSweets = document.getElementById('btn-sweets');
+    const viewSoul = document.getElementById('view-soul');
+    const viewSweets = document.getElementById('view-sweets');
+    const navMenuBtn = document.getElementById('nav-menu');
+
+    // Switch to Confections
+    btnSweets.addEventListener('click', () => {
+      document.body.classList.add('confections-mode');
+      viewSoul.classList.add('hidden');
+      viewSweets.classList.remove('hidden');
+      
+      // Update Switcher UI
+      btnSweets.classList.add('bg-[#BD8255]', 'text-[#241A16]');
+      btnSweets.classList.remove('text-[#DDDDBF]');
+      btnSoul.classList.remove('bg-[#A85532]', 'text-[#F5EFE5]');
+      btnSoul.classList.add('text-[#DDDDBF]');
+      
+      // Update Bottom Nav Label
+      navMenuBtn.innerHTML = '<i data-lucide="gem" class="mb-1"></i>Shop';
+      lucide.createIcons();
+    });
+
+    // Switch to Soul Kitchen
+    btnSoul.addEventListener('click', () => {
+      document.body.classList.remove('confections-mode');
+      viewSweets.classList.add('hidden');
+      viewSoul.classList.remove('hidden');
+      
+      // Update Switcher UI
+      btnSoul.classList.add('bg-[#A85532]', 'text-[#F5EFE5]');
+      btnSoul.classList.remove('text-[#DDDDBF]');
+      btnSweets.classList.remove('bg-[#BD8255]', 'text-[#241A16]');
+      btnSweets.classList.add('text-[#DDDDBF]');
+      
+      // Update Bottom Nav Label
+      navMenuBtn.innerHTML = '<i data-lucide="menu" class="mb-1"></i>Menu';
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
